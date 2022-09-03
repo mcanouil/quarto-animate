@@ -1,0 +1,6 @@
+title: Animate.css support
+author: Mickaël Canouil
+version: 0.1.0
+contributes:
+  shortcodes:
+    - animate-shortcodes.lua
