@@ -14,7 +14,7 @@ If you're using version control, you will want to check in this directory.
 
 ## Using
 
-To animate a text, use the `{{< ani >}}` shortcode. For example:
+To animate a text, use the `{{< animate >}}` shortcode. For example:
 
 ```markdown
 {{< animate bounce "Some text" >}}
@@ -59,8 +59,7 @@ It provides an `{{{< animate >}}}` shortcode:
 - __Rotating exits__:  
   `rotateOut`, `rotateOutDownLeft`, `rotateOutDownRight`, `rotateOutUpLeft`, `rotateOutUpRight`.
 - __Specials__:  
-  `hinge`,  
-  `jackInTheBox`, `rollIn`, `rollOut`.
+  `hinge`, `jackInTheBox`, `rollIn`, `rollOut`.
 - __Zooming entrances__:  
   `zoomIn`, `zoomInDown`, `zoomInLeft`, `zoomInRight`, `zoomInUp`.
 - __Zooming exits__:  
