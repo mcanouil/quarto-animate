@@ -22,7 +22,7 @@ To animate a text, use the `{{< ani >}}` shortcode. For example:
 
 It provides an `{{{< animate >}}}` shortcode:
 
-- Mandatory `<effect>`[^1] and `<text>`:
+- Mandatory `<effect>` and `<text>`:
   ``` markdown
   {{< animate <effect> <text> >}}
   ```
@@ -34,24 +34,41 @@ It provides an `{{{< animate >}}}` shortcode:
   `<delay=...>` and `<duration=...>` are durations requiring unit, _e.g._, `1s` or `800ms`.  
   See <https://animate.style/> for more details.
 
-[^1]: The following effects are available:
+## Animation effects
 
--  __Attention seekers__: `bounce`, `flash`, `pulse`, `rubberBand`, `shakeX`, `shakeY`, `headShake`, `swing`, `tada`, `wobble`, `jello`, `heartBeat`.
-- __Back entrances__: `backInDown`, `backInLeft`, `backInRight`, `backInUp`.
-- __Back exits__: `backOutDown`, `backOutLeft`, `backOutRight`, `backOutUp`.
-- __Bouncing entrances__: `bounceIn`, `bounceInDown`, `bounceInLeft`, `bounceInRight`, `bounceInUp`.
-- __Bouncing exits__: `bounceOut`, `bounceOutDown`, `bounceOutLeft`, `bounceOutRight`, `bounceOutUp`.
-- __Fading entrances__: `fadeIn`, `fadeInDown`, `fadeInDownBig`, `fadeInLeft`, `fadeInLeftBig`, `fadeInRight`, `fadeInRightBig`, `fadeInUp`, `fadeInUpBig`, `fadeInTopLeft`, `fadeInTopRight`, `fadeInBottomLeft`, `fadeInBottomRight`.
-- __Fading exits__: `fadeOut`, `fadeOutDown`, `fadeOutDownBig`, `fadeOutLeft`, `fadeOutLeftBig`, `fadeOutRight`, `fadeOutRightBig`, `fadeOutUp`, `fadeOutUpBig`, `fadeOutTopLeft`, `fadeOutTopRight`, `fadeOutBottomRight`, `fadeOutBottomLeft`.
-- __Flippers__: `flip`, `flipInX`, `flipInY`, `flipOutX`, `flipOutY`.
-- __Lightspeed__: `lightSpeedInRight`, `lightSpeedInLeft`, `lightSpeedOutRight`, `lightSpeedOutLeft`.
-- __Rotating entrances__: `rotateIn`, `rotateInDownLeft`, `rotateInDownRight`, `rotateInUpLeft`, `rotateInUpRight`.
-- __Rotating exits__: `rotateOut`, `rotateOutDownLeft`, `rotateOutDownRight`, `rotateOutUpLeft`, `rotateOutUpRight`.
-- __Specials__: `hinge`, `jackInTheBox`, `rollIn`, `rollOut`.
-- __Zooming entrances__: `zoomIn`, `zoomInDown`, `zoomInLeft`, `zoomInRight`, `zoomInUp`.
-- __Zooming exits__: `zoomOut`, `zoomOutDown`, `zoomOutLeft`, `zoomOutRight`, `zoomOutUp`.
-- __Sliding entrances__: `slideInDown`, `slideInLeft`, `slideInRight`, `slideInUp`.
-- __Sliding exits__: `slideOutDown`, `slideOutLeft`, `slideOutRight`, `slideOutUp`.
+- __Attention seekers__:  
+  `bounce`, `flash`, `pulse`, `rubberBand`, `shakeX`, `shakeY`, `headShake`, `swing`, `tada`, `wobble`, `jello`, `heartBeat`.
+- __Back entrances__:  
+  `backInDown`, `backInLeft`, `backInRight`, `backInUp`.
+- __Back exits__:  
+  `backOutDown`, `backOutLeft`, `backOutRight`, `backOutUp`.
+- __Bouncing entrances__:  
+  `bounceIn`, `bounceInDown`, `bounceInLeft`, `bounceInRight`, `bounceInUp`.
+- __Bouncing exits__:  
+  `bounceOut`, `bounceOutDown`, `bounceOutLeft`, `bounceOutRight`, `bounceOutUp`.
+- __Fading entrances__:  
+  `fadeIn`, `fadeInDown`, `fadeInDownBig`, `fadeInLeft`, `fadeInLeftBig`, `fadeInRight`, `fadeInRightBig`, `fadeInUp`, `fadeInUpBig`, `fadeInTopLeft`, `fadeInTopRight`, `fadeInBottomLeft`, `fadeInBottomRight`.
+- __Fading exits__:  
+  `fadeOut`, `fadeOutDown`, `fadeOutDownBig`, `fadeOutLeft`, `fadeOutLeftBig`, `fadeOutRight`, `fadeOutRightBig`, `fadeOutUp`, `fadeOutUpBig`, `fadeOutTopLeft`, `fadeOutTopRight`, `fadeOutBottomRight`, `fadeOutBottomLeft`.
+- __Flippers__:  
+  `flip`, `flipInX`, `flipInY`, `flipOutX`, `flipOutY`.
+- __Lightspeed__:  
+  `lightSpeedInRight`, `lightSpeedInLeft`, `lightSpeedOutRight`, `lightSpeedOutLeft`.
+- __Rotating entrances__:  
+  `rotateIn`, `rotateInDownLeft`, `rotateInDownRight`, `rotateInUpLeft`, `rotateInUpRight`.
+- __Rotating exits__:  
+  `rotateOut`, `rotateOutDownLeft`, `rotateOutDownRight`, `rotateOutUpLeft`, `rotateOutUpRight`.
+- __Specials__:  
+  `hinge`,  
+  `jackInTheBox`, `rollIn`, `rollOut`.
+- __Zooming entrances__:  
+  `zoomIn`, `zoomInDown`, `zoomInLeft`, `zoomInRight`, `zoomInUp`.
+- __Zooming exits__:  
+  `zoomOut`, `zoomOutDown`, `zoomOutLeft`, `zoomOutRight`, `zoomOutUp`.
+- __Sliding entrances__:  
+  `slideInDown`, `slideInLeft`, `slideInRight`, `slideInUp`.
+- __Sliding exits__:  
+  `slideOutDown`, `slideOutLeft`, `slideOutRight`, `slideOutUp`.
 
 ## Example
 
