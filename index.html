@@ -444,6 +444,21 @@ See <a href="https://animate.style/" class="uri">https://animate.style/</a> for 
 </ul>
 </section>
 </section>
+<section id="advanced" class="level2">
+<h2 class="anchored" data-anchor-id="advanced">Advanced</h2>
+<p>The following won’t work:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>{{&lt; animate bounce "<span class="co">[</span><span class="ot">HTML</span><span class="co">](https://m.canouil.fr/quarto-animate/)</span>" &gt;}}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>But this will:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>[<span class="co">[</span><span class="ot">HTML</span><span class="co">](https://m.canouil.fr/quarto-animate/)</span>]{.animate__animated .animate__bounce style="display:inline-block;"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="animate__animated animate__bounce" style="display:inline-block;"><a href="https://m.canouil.fr/quarto-animate/">HTML</a></span></p>
+<p>Or:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>::: {.animate__animated .animate__bounce}</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">HTML</span><span class="co">](https://m.canouil.fr/quarto-animate/)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="animate__animated animate__bounce">
+<p><a href="https://m.canouil.fr/quarto-animate/">HTML</a></p>
+</div>
+</section>
 
 </main>
 <!-- /main column -->
