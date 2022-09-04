@@ -20,8 +20,6 @@ To animate a text, use the `{{< animate >}}` shortcode. For example:
 {{< animate bounce "Some text" >}}
 ```
 
-It provides an `{{{< animate >}}}` shortcode:
-
 - Mandatory `<effect>` and `<text>`:
   ``` markdown
   {{< animate <effect> "<text>" >}}
