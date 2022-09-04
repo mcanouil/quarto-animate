@@ -176,3 +176,32 @@ For example:
 - {{< animate slideOutLeft "`slideOutLeft`" repeat=infinite duration=4s >}}
 - {{< animate slideOutRight "`slideOutRight`" repeat=infinite duration=4s >}}
 - {{< animate slideOutUp "`slideOutUp`" repeat=infinite duration=4s >}}
+
+
+## Advanced
+
+The following won't work:
+
+```markdown
+{{{< animate bounce "[HTML](https://m.canouil.fr/quarto-animate/)" >}}}
+```
+
+But this will:
+
+```markdown
+[[HTML](https://m.canouil.fr/quarto-animate/)]{.animate__animated .animate__bounce style="display:inline-block;"}
+```
+
+[[HTML](https://m.canouil.fr/quarto-animate/)]{.animate__animated .animate__bounce style="display:inline-block;"}
+
+Or:
+
+```markdown
+::: {.animate__animated .animate__bounce}
+[HTML](https://m.canouil.fr/quarto-animate/)
+:::
+```
+
+::: {.animate__animated .animate__bounce}
+[HTML](https://m.canouil.fr/quarto-animate/)
+:::
