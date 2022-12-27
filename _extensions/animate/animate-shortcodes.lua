@@ -1,17 +1,17 @@
-local function ensureHtmlDeps()
-  quarto.doc.addHtmlDependency({
+local function ensure_html_deps()
+  quarto.doc.add_html_dependency({
     name = 'animate',
     version = '4.1.1',
     stylesheets = {"animate.min.css"}
   })
 end
 
-local function isEmpty(s)
+local function is_empty(s)
   return s == nil or s == ''
 end
 
-local function isValidAnimation(effect)
-  if isEmpty(effect) then
+local function is_valid_animation(effect)
+  if is_empty(effect) then
     return ''
   end
   local animation_array = {
@@ -126,13 +126,13 @@ local yamlAniDelay = "2s"
 local yamlAniRepeat = "1"
 
 function setAniOptions(meta)
-  if not isEmpty(meta['ani-delay']) then
+  if not is_empty(meta['ani-delay']) then
     yamlAniDelay = meta['ani-delay']
   end
-  if not isEmpty(meta['ani-duration']) then
+  if not is_empty(meta['ani-duration']) then
     yamlAniDuration = meta['ani-duration']
   end
-  if not isEmpty(meta['ani-repeat']) then
+  if not is_empty(meta['ani-repeat']) then
     yamlAniRepeat = meta['ani-repeat']
   end
   meta['ani-delay'] = yamlAniDelay
@@ -145,27 +145,27 @@ return {
   {Meta = setAniOptions},
   ["animate"] = function(args, kwargs)
     -- detect html (excluding epub which won't handle fa)
-    if quarto.doc.isFormat("html:js") then
-      ensureHtmlDeps()
-      quarto.doc.includeText(
+    if quarto.doc.is_format("html:js") then
+      ensure_html_deps()
+      quarto.doc.include_text(
         "in-header",
         "<style>:root{--animate-duration:" .. yamlAniDuration .. ";--animate-delay:" .. yamlAniDelay .. ";--animate-repeat:" .. yamlAniRepeat .. "}</style>"
       )
 
-      local animation = isValidAnimation(pandoc.utils.stringify(args[1]))
-      if isEmpty(animation) then
+      local animation = is_valid_animation(pandoc.utils.stringify(args[1]))
+      if is_empty(animation) then
         return pandoc.Null()
       end
 
       local aniDelay = pandoc.utils.stringify(kwargs["delay"])
-      if isEmpty(aniDelay) then
+      if is_empty(aniDelay) then
         attr_delay = ''
       else
         attr_delay = ' animate__delay-' .. aniDelay
       end
 
       local aniRepeat = pandoc.utils.stringify(kwargs["repeat"])
-      if isEmpty(aniRepeat) then
+      if is_empty(aniRepeat) then
         attr_repeat = ''
       else
         if (aniRepeat == "infinite") then
@@ -176,7 +176,7 @@ return {
       end
 
       local aniDuration = pandoc.utils.stringify(kwargs["duration"])
-      if isEmpty(aniDuration) then
+      if is_empty(aniDuration) then
         attr_duration = 'style="display: inline-block;"'
       else
         attr_duration = 'style="display: inline-block;animation-duration:' .. aniDuration .. '"'
