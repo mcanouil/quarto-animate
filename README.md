@@ -96,3 +96,7 @@ See <https://animate.style/> for more details.
 Here is the source code for a minimal example: [example.qmd](example.qmd).
 
 This is the output of `example.qmd` for [HTML](https://m.canouil.fr/quarto-animate/).
+
+---
+
+[Animate.css](https://animate.style/) by Daniel Eden under Hippocratic License 3.0.
