@@ -72,7 +72,7 @@ To animate a text, use the `{{< animate >}}` shortcode. For example:
 The following won't work:
 
 ```markdown
-{{< animate bounce "[HTML](https://m.canouil.fr/quarto-animate/)" >}}
+{{< animate bounce "[HTML](https://m.canouil.dev/quarto-animate/)" >}}
 ```
 
 But this will:
