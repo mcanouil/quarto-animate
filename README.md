@@ -78,14 +78,14 @@ The following won't work:
 But this will:
 
 ```markdown
-[[HTML](https://m.canouil.fr/quarto-animate/)]{.animate__animated .animate__bounce style="display:inline-block;"}
+[[HTML](https://m.canouil.dev/quarto-animate/)]{.animate__animated .animate__bounce style="display:inline-block;"}
 ```
 
 Or:
 
 ```markdown
 ::: {.animate__animated .animate__bounce}
-[HTML](https://m.canouil.fr/quarto-animate/)
+[HTML](https://m.canouil.dev/quarto-animate/)
 :::
 ```
 
@@ -95,7 +95,7 @@ See <https://animate.style/> for more details.
 
 Here is the source code for a minimal example: [example.qmd](example.qmd).
 
-This is the output of `example.qmd` for [HTML](https://m.canouil.fr/quarto-animate/).
+This is the output of `example.qmd` for [HTML](https://m.canouil.dev/quarto-animate/).
 
 ---
 
