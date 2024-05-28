@@ -35,11 +35,7 @@ jobs:
       - name: Render Quarto Project
         shell: bash
         run: |
-          echo -e "project:\n  output-dir: _site" > _quarto.yml
-          # Render to all formats via for loop to avoid LaTeX error "pdf/beamer" formats
-          for format in html typst pdf docx revealjs beamer pptx; do
-            quarto render --to ${format}
-          done
+          quarto render example.qmd --to html --output index.html --output-dir _site
       
       - uses: actions/configure-pages@v5
 
