@@ -1,4 +1,4 @@
-name: Release
+name: Release Quarto Extension
 
 on:
   workflow_dispatch:
@@ -11,9 +11,6 @@ on:
           - "minor"
           - "major"
         default: "minor"
-
-env:
-  MANIFEST: _extensions/animate/_extension.yml
 
 jobs:
   bump-version:
@@ -47,6 +44,9 @@ jobs:
           fi
           git checkout -b "${BRANCH}"
 
+          REPO="${{ github.repository }}"
+          EXTENSION="${REPO#${{ github.repository_owner }}/quarto-}"
+          MANIFEST="_extensions/${EXTENSION}/_extension.yml"
           DATE=$(date +%Y-%m-%d)
           CURRENT_VERSION=$(grep "^version:" "${MANIFEST}" | sed 's/version: //;s/"//g')
           MAJOR=$(echo ${CURRENT_VERSION} | cut -d. -f1)
@@ -114,7 +114,12 @@ jobs:
           GH_TOKEN: ${{ secrets.github_token }}
         shell: bash
         run: |
+          REPO="${{ github.repository }}"
+          EXTENSION="${REPO#${{ github.repository_owner }}/quarto-}"
+          MANIFEST="_extensions/${EXTENSION}/_extension.yml"
           VERSION=$(grep "^version:" "${MANIFEST}" | sed 's/version: //;s/"//g')
           LINE=$(grep -n "^version:" "${MANIFEST}" | cut -d: -f1)
           echo "::notice file=${MANIFEST},line=${LINE}::Version: ${VERSION}"
-          gh release create ${VERSION} --title ${VERSION} --generate-notes
+          PRTITLE=${EXTENSION^^}
+          PRTITLE=${PRTITLE//-/ }
+          gh release create ${VERSION} --title ${PRTITLE} --generate-notes
