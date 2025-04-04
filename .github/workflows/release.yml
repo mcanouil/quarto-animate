@@ -73,7 +73,6 @@ jobs:
 
           VERSION="${MAJOR}.${MINOR}.${PATCH}"
           echo "::notice ::New Version: ${VERSION}"
-          exit 0
           sed -i "s/^version:.*/version: ${VERSION}/" "${MANIFEST}"
           sed -i "s/^version:.*/version: ${VERSION}/" CITATION.cff
           sed -i "s/^date-released:.*/date-released: \"${DATE}\"/" CITATION.cff
