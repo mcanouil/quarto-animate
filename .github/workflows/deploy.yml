@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+  release:
+    types: [published]
 
 permissions:
   contents: read
@@ -30,7 +32,7 @@ jobs:
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: pre-release
-          tinytex: true
+          tinytex: false
       
       - name: Render Quarto Project
         shell: bash
