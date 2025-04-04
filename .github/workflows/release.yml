@@ -10,7 +10,7 @@ on:
           - "patch"
           - "minor"
           - "major"
-        default: "minor"
+        default: "patch"
 
 jobs:
   bump-version:
