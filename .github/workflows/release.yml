@@ -51,6 +51,7 @@ jobs:
           echo "::notice ::Manifest: ${MANIFEST}"
           DATE=$(date +%Y-%m-%d)
           CURRENT_VERSION=$(grep "^version:" "${MANIFEST}" | sed 's/version: //;s/"//g')
+          echo "::notice ::Current Version: ${CURRENT_VERSION}"
           MAJOR=$(echo ${CURRENT_VERSION} | cut -d. -f1)
           MINOR=$(echo ${CURRENT_VERSION} | cut -d. -f2)
           PATCH=$(echo ${CURRENT_VERSION} | cut -d. -f3)
@@ -71,6 +72,8 @@ jobs:
           esac
 
           VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          echo "::notice ::New Version: ${VERSION}"
+          exit 0
           sed -i "s/^version:.*/version: ${VERSION}/" "${MANIFEST}"
           sed -i "s/^version:.*/version: ${VERSION}/" CITATION.cff
           sed -i "s/^date-released:.*/date-released: \"${DATE}\"/" CITATION.cff
