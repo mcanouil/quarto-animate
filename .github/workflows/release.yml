@@ -45,8 +45,10 @@ jobs:
           git checkout -b "${BRANCH}"
 
           REPO="${{ github.repository }}"
-          EXTENSION="${REPO#${{ github.repository_owner }}/quarto-}"
+          PREFIX="${{ github.repository_owner }}/quarto-"
+          EXTENSION="${REPO#${PREFIX}}"
           MANIFEST="_extensions/${EXTENSION}/_extension.yml"
+          echo "::notice ::Manifest: ${MANIFEST}"
           DATE=$(date +%Y-%m-%d)
           CURRENT_VERSION=$(grep "^version:" "${MANIFEST}" | sed 's/version: //;s/"//g')
           MAJOR=$(echo ${CURRENT_VERSION} | cut -d. -f1)
@@ -73,6 +75,7 @@ jobs:
           sed -i "s/^version:.*/version: ${VERSION}/" CITATION.cff
           sed -i "s/^date-released:.*/date-released: \"${DATE}\"/" CITATION.cff
           git add CITATION.cff || echo "No changes to add"
+          git add "${MANIFEST}" || echo "No changes to add"
           git commit -m "${COMMIT}" || echo "No changes to commit"
           git push --force origin ${BRANCH} || echo "No changes to push"
 
