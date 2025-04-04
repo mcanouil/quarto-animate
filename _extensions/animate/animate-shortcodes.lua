@@ -165,53 +165,55 @@ function setAniOptions(meta)
   return meta
 end
 
-return {
-  {Meta = setAniOptions},
-  ["animate"] = function(args, kwargs)
-    -- detect html (excluding epub which won't handle fa)
-    if quarto.doc.is_format("html:js") then
-      ensure_html_deps()
-      quarto.doc.include_text(
-        "in-header",
-        "<style>:root{--animate-duration:" .. yamlAniDuration .. ";--animate-delay:" .. yamlAniDelay .. ";--animate-repeat:" .. yamlAniRepeat .. "}</style>"
-      )
+function animate(args, kwargs)
+  -- detect html (excluding epub which won't handle fa)
+  if quarto.doc.is_format("html:js") then
+    ensure_html_deps()
+    quarto.doc.include_text(
+      "in-header",
+      "<style>:root{--animate-duration:" .. yamlAniDuration .. ";--animate-delay:" .. yamlAniDelay .. ";--animate-repeat:" .. yamlAniRepeat .. "}</style>"
+    )
 
-      local animation = is_valid_animation(pandoc.utils.stringify(args[1]))
-      if is_empty(animation) then
-        return pandoc.Null()
-      end
-
-      local aniDelay = pandoc.utils.stringify(kwargs["delay"])
-      if is_empty(aniDelay) then
-        attr_delay = ''
-      else
-        attr_delay = ' animate__delay-' .. aniDelay
-      end
-
-      local aniRepeat = pandoc.utils.stringify(kwargs["repeat"])
-      if is_empty(aniRepeat) then
-        attr_repeat = ''
-      else
-        if (aniRepeat == "infinite") then
-          attr_repeat = ' animate__' .. aniRepeat
-        else
-          attr_repeat = ' animate__repeat-' .. aniRepeat
-        end
-      end
-
-      local aniDuration = pandoc.utils.stringify(kwargs["duration"])
-      if is_empty(aniDuration) then
-        attr_duration = 'style="display: inline-block;"'
-      else
-        attr_duration = 'style="display: inline-block;animation-duration:' .. aniDuration .. '"'
-      end
-
-      return pandoc.RawInline(
-        'html',
-        '<span class="' .. animation .. attr_delay .. attr_repeat .. '" ' .. attr_duration .. '>' .. pandoc.utils.stringify(args[2]) .. '</span>'
-      )
-    else
+    local animation = is_valid_animation(pandoc.utils.stringify(args[1]))
+    if is_empty(animation) then
       return pandoc.Null()
     end
+
+    local aniDelay = pandoc.utils.stringify(kwargs["delay"])
+    if is_empty(aniDelay) then
+      attr_delay = ''
+    else
+      attr_delay = ' animate__delay-' .. aniDelay
+    end
+
+    local aniRepeat = pandoc.utils.stringify(kwargs["repeat"])
+    if is_empty(aniRepeat) then
+      attr_repeat = ''
+    else
+      if (aniRepeat == "infinite") then
+        attr_repeat = ' animate__' .. aniRepeat
+      else
+        attr_repeat = ' animate__repeat-' .. aniRepeat
+      end
+    end
+
+    local aniDuration = pandoc.utils.stringify(kwargs["duration"])
+    if is_empty(aniDuration) then
+      attr_duration = 'style="display: inline-block;"'
+    else
+      attr_duration = 'style="display: inline-block;animation-duration:' .. aniDuration .. '"'
+    end
+
+    return pandoc.RawInline(
+      'html',
+      '<span class="' .. animation .. attr_delay .. attr_repeat .. '" ' .. attr_duration .. '>' .. pandoc.utils.stringify(args[2]) .. '</span>'
+    )
+  else
+    return pandoc.Null()
   end
+end
+
+return {
+  {Meta = setAniOptions},
+  ["animate"] = animate
 }
