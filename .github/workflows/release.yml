@@ -127,4 +127,4 @@ jobs:
           echo "::notice file=${MANIFEST},line=${LINE}::Version: ${VERSION}"
           PRTITLE=${EXTENSION^^}
           PRTITLE=${PRTITLE//-/ }
-          gh release create ${VERSION} --title ${PRTITLE} --generate-notes
+          gh release create ${VERSION} --title "${PRTITLE} ${VERSION}" --generate-notes
