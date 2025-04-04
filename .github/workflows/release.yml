@@ -102,6 +102,7 @@ jobs:
 
       - name: Update branch
         run: |
+          sleep 10
           git fetch --all
           git checkout main
           git pull origin main
@@ -112,4 +113,5 @@ jobs:
         shell: bash
         run: |
           VERSION=$(grep "^version:" CITATION.cff | sed 's/version: //;s/"//g')
+          echo "::notice file=CITATION.cff::Version: ${VERSION}"
           gh release create ${VERSION} --title ${VERSION} --generate-notes
