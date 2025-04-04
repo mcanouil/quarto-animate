@@ -111,6 +111,5 @@ jobs:
           GH_TOKEN: ${{ secrets.github_token }}
         shell: bash
         run: |
-          DATE=$(grep "^date-released:" CITATION.cff | sed 's/date-released: //;s/"//g')
           VERSION=$(grep "^version:" CITATION.cff | sed 's/version: //;s/"//g')
-          gh release create ${VERSION} --title ${DATE} --generate-notes
+          gh release create ${VERSION} --title ${VERSION} --generate-notes
