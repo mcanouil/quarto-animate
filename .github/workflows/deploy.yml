@@ -8,7 +8,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: mcanouil/quarto-extensions-actions/.github/workflows/deploy.yml@main
+      - name: Deploy
+        uses: mcanouil/quarto-extensions-actions/.github/workflows/deploy.yml@main
         with:
           formats: "html"
           tinytex: false
