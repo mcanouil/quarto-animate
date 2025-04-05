@@ -15,7 +15,7 @@ on:
 
 jobs:
   release:
-    uses: mcanouil/quarto-extensions-actions/.github/workflows/release.yml@main
+    uses: mcanouil/quarto-extension-actions/.github/workflows/release.yml@main
     secrets: inherit
     with:
       version: "${{ github.event.inputs.version }}"
