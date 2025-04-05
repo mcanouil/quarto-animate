@@ -14,20 +14,11 @@ on:
           - "major"
 
 jobs:
-  bump-version:
-    uses: mcanouil/quarto-extensions-actions/.github/workflows/bump-version.yml@main
-    with:
-      version: "${{ github.event.inputs.version }}"
-    secrets: inherit
   release:
     uses: mcanouil/quarto-extensions-actions/.github/workflows/release.yml@main
-    needs: bump-version
     secrets: inherit
-  deploy:
-    uses: mcanouil/quarto-extensions-actions/.github/workflows/deploy.yml@main
-    needs: release
     with:
+      version: "${{ github.event.inputs.version }}"
       formats: "html"
       tinytex: false
-      version: "release"
-    secrets: inherit
+      quarto: "release"
