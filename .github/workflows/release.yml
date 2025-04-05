@@ -15,9 +15,6 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Release
-        uses: mcanouil/quarto-extensions-actions/.github/workflows/release.yml@main
-        with:
-          version: "${{ github.event.inputs.version }}"
+    uses: mcanouil/quarto-extensions-actions/.github/workflows/release.yml@main
+    with:
+      version: "${{ github.event.inputs.version }}"

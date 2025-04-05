@@ -6,11 +6,8 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy
-        uses: mcanouil/quarto-extensions-actions/.github/workflows/deploy.yml@main
-        with:
-          formats: "html"
-          tinytex: false
-          version: "release"
+    uses: mcanouil/quarto-extensions-actions/.github/workflows/deploy.yml@main
+    with:
+      formats: "html"
+      tinytex: false
+      version: "release"
