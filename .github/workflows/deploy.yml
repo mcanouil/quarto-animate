@@ -1,13 +1,6 @@
 name: Deploy GitHub Pages
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: "Quarto version"
-        required: false
-        default: "release"
-        type: string
   release:
     types: [published]
 
@@ -18,5 +11,5 @@ jobs:
       - uses: mcanouil/quarto-extensions-actions/.github/workflows/deploy.yml@main
         with:
           formats: "html"
-          tinytex: "${{ github.event.inputs.tinytex }}"
-          version: false
+          tinytex: false
+          version: "release"
