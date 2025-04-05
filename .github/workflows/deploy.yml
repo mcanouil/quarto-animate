@@ -1,47 +1,22 @@
-name: Deploy
+name: Deploy GitHub Pages
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Quarto version"
+        required: false
+        default: "release"
+        type: string
   release:
     types: [published]
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v4
-      
-      - uses: quarto-dev/quarto-actions/setup@v2
+      - uses: mcanouil/quarto-extensions-actions/.github/workflows/deploy.yml@main
         with:
-          version: pre-release
-          tinytex: false
-      
-      - name: Render Quarto Project
-        shell: bash
-        run: |
-          quarto render example.qmd --to html --output index.html --output-dir _site
-      
-      - uses: actions/configure-pages@v5
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: '_site'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          formats: "html"
+          tinytex: "${{ github.event.inputs.tinytex }}"
+          version: false
