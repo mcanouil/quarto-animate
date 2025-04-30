@@ -28,6 +28,12 @@ local function ensure_html_deps()
     version = '4.1.1',
     stylesheets = {"animate.min.css"}
   })
+  if quarto.doc.is_format("revealjs") then
+    quarto.doc.add_html_dependency({
+      name = "animatejs",
+      scripts = {{ path = "animate.js", afterBody = true }}
+    })
+  end
 end
 
 local function is_empty(s)
