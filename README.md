@@ -32,6 +32,36 @@ To animate a text, use the `{{< animate >}}` shortcode. For example:
   `<delay=...>` and `<duration=...>` are durations requiring unit, _e.g._, `1s` or `800ms`.  
   See <https://animate.style/> for more details.
 
+## Advanced
+
+The following won't work:
+
+```markdown
+{{< animate bounce "[HTML](https://m.canouil.dev/quarto-animate/)" >}}
+```
+
+But this will:
+
+```markdown
+[[HTML](https://m.canouil.dev/quarto-animate/)]{.animate__animated .animate__bounce style="display:inline-block;"}
+```
+
+Or:
+
+```markdown
+::: {.animate__animated .animate__bounce}
+[HTML](https://m.canouil.dev/quarto-animate/)
+:::
+```
+
+See <https://animate.style/> for more details.
+
+## Example
+
+Here is the source code for a minimal example: [example.qmd](example.qmd).
+
+This is the output of `example.qmd` for [HTML](https://m.canouil.dev/quarto-animate/).
+
 ## Animation effects
 
 - __Attention seekers__:  
@@ -66,36 +96,6 @@ To animate a text, use the `{{< animate >}}` shortcode. For example:
   `slideInDown`, `slideInLeft`, `slideInRight`, `slideInUp`.
 - __Sliding exits__:  
   `slideOutDown`, `slideOutLeft`, `slideOutRight`, `slideOutUp`.
-
-## Advanced
-
-The following won't work:
-
-```markdown
-{{< animate bounce "[HTML](https://m.canouil.dev/quarto-animate/)" >}}
-```
-
-But this will:
-
-```markdown
-[[HTML](https://m.canouil.dev/quarto-animate/)]{.animate__animated .animate__bounce style="display:inline-block;"}
-```
-
-Or:
-
-```markdown
-::: {.animate__animated .animate__bounce}
-[HTML](https://m.canouil.dev/quarto-animate/)
-:::
-```
-
-See <https://animate.style/> for more details.
-
-## Example
-
-Here is the source code for a minimal example: [example.qmd](example.qmd).
-
-This is the output of `example.qmd` for [HTML](https://m.canouil.dev/quarto-animate/).
 
 ---
 
