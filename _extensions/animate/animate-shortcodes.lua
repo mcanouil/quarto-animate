@@ -22,24 +22,16 @@
 # SOFTWARE.
 ]]
 
-local function ensure_html_deps()
-  quarto.doc.add_html_dependency({
-    name = 'animate',
-    version = '4.1.1',
-    stylesheets = {"animate.min.css"}
-  })
-  if quarto.doc.is_format("revealjs") then
-    quarto.doc.add_html_dependency({
-      name = "animatejs",
-      scripts = {{ path = "animate.js", afterBody = true }}
-    })
-  end
-end
-
+--- Check if a string is empty or nil.
+-- @param s string|nil
+-- @return boolean
 local function is_empty(s)
   return s == nil or s == ''
 end
 
+--- Validate if the effect is a supported animation.
+-- @param effect string|nil
+-- @return string
 local function is_valid_animation(effect)
   if is_empty(effect) then
     return ''
@@ -155,6 +147,9 @@ local yamlAniDuration = "3s"
 local yamlAniDelay = "2s"
 local yamlAniRepeat = "1"
 
+--- Set animation options from meta.
+-- @param meta table
+-- @return table
 function setAniOptions(meta)
   if not is_empty(meta['ani-delay']) then
     yamlAniDelay = meta['ani-delay']
@@ -171,14 +166,32 @@ function setAniOptions(meta)
   return meta
 end
 
+--- Ensure HTML dependencies for animate are added.
+-- @return nil
+local function ensure_html_deps()
+  quarto.doc.add_html_dependency({
+    name = 'animate',
+    version = '4.1.1',
+    stylesheets = {"animate.min.css"},
+    head = "<style>:root{--animate-duration:" .. yamlAniDuration ..
+      ";--animate-delay:" .. yamlAniDelay .. ";--animate-repeat:" .. yamlAniRepeat .. "}</style>"
+  })
+  if quarto.doc.is_format("revealjs") then
+    quarto.doc.add_html_dependency({
+      name = "animatejs",
+      scripts = {{ path = "animate.js", afterBody = true }}
+    })
+  end
+end
+
+--- Animate shortcode handler.
+-- @param args table
+-- @param kwargs table
+-- @return pandoc.Inline|pandoc.Null
 function animate(args, kwargs)
   -- detect html (excluding epub which won't handle fa)
   if quarto.doc.is_format("html:js") then
     ensure_html_deps()
-    quarto.doc.include_text(
-      "in-header",
-      "<style>:root{--animate-duration:" .. yamlAniDuration .. ";--animate-delay:" .. yamlAniDelay .. ";--animate-repeat:" .. yamlAniRepeat .. "}</style>"
-    )
 
     local animation = is_valid_animation(pandoc.utils.stringify(args[1]))
     if is_empty(animation) then
@@ -212,7 +225,8 @@ function animate(args, kwargs)
 
     return pandoc.RawInline(
       'html',
-      '<span class="' .. animation .. attr_delay .. attr_repeat .. '" ' .. attr_duration .. '>' .. pandoc.utils.stringify(args[2]) .. '</span>'
+      '<span class="' .. animation .. attr_delay .. attr_repeat .. '" ' ..
+        attr_duration .. '>' .. pandoc.utils.stringify(args[2]) .. '</span>'
     )
   else
     return pandoc.Null()
