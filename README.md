@@ -21,16 +21,29 @@ To animate a text, use the `{{< animate >}}` shortcode. For example:
 ```
 
 - Mandatory `<effect>` and `<text>`:
+
   ``` markdown
   {{< animate <effect> "<text>" >}}
   ```
 
 - Optional `<delay=...>`, `<duration=...>`, and `<repeat=...>`:
+
   ``` markdown
   {{< animate <effect> "<text>" <delay=...> <duration=...> <repeat=...> >}}
   ```
+
   `<delay=...>` and `<duration=...>` are durations requiring unit, _e.g._, `1s` or `800ms`.  
   See <https://animate.style/> for more details.
+
+Defining default values for animations can be done in the YAML front matter of your document:
+
+```yml
+extensions:
+  animate:
+    delay: 5s
+    duration: 10s
+    repeat: 3
+```
 
 ## Advanced
 

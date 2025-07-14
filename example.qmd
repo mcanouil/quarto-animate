@@ -1,8 +1,12 @@
 ---
 title: 'Animate.css Extension for Quarto'
 format: html
+extensions:
+  animate:
+    delay: 5s
+    duration: 10s
+    repeat: 3
 ---
-
 
 ## Using the extension
 
@@ -11,14 +15,17 @@ Animations are only available for HTML-based documents.
 It provides an `{{{< animate >}}}` shortcode:
 
 - Mandatory `<effect>` and `<text>`:
-  ``` markdown
+
+  ```markdown
   {{{< animate <effect> "<text>" >}}}
   ```
 
 - Optional `<delay=...>`, `<duration=...>`, and `<repeat=...>`:
-  ``` markdown
+
+  ```markdown
   {{{< animate <effect> "<text>" <delay=...> <duration=...> <repeat=...> >}}}
   ```
+
   `<delay=...>` and `<duration=...>` are durations requiring unit, _e.g._, `1s` or `800ms`.  
   See <https://animate.style/> for more details.
 
@@ -29,6 +36,16 @@ For example:
 | `{{{< animate bounce "Some text" >}}}`                                     | {{< animate bounce "Some text" >}}                                     |
 | `{{{< animate flip "Some text" repeat=2 >}}}`                              | {{< animate flip "Some text" repeat=2 >}}                              |
 | `{{{< animate hinge "Some text" delay=3s duration=4s repeat=infinite >}}}` | {{< animate hinge "Some text" delay=1s duration=2s repeat=infinite >}} |
+
+Defining default values for animations can be done in the YAML front matter of your document:
+
+```yml
+extensions:
+  animate:
+    delay: 5s
+    duration: 10s
+    repeat: 3
+```
 
 ## Advanced
 
@@ -62,145 +79,145 @@ Or:
 
 ### Attention seekers
 
-- `bounce` {{< animate bounce "bounce" repeat=infinite duration=4s >}}
-- `flash` {{< animate flash "flash" repeat=infinite duration=4s >}}
-- `pulse` {{< animate pulse "pulse" repeat=infinite duration=4s >}}
-- `rubberBand` {{< animate rubberBand "rubberBand" repeat=infinite duration=4s >}}
-- `shakeX` {{< animate shakeX "shakeX" repeat=infinite duration=4s >}}
-- `shakeY` {{< animate shakeY "shakeY" repeat=infinite duration=4s >}}
-- `headShake` {{< animate headShake "headShake" repeat=infinite duration=4s >}}
-- `swing` {{< animate swing "swing" repeat=infinite duration=4s >}}
-- `tada` {{< animate tada "tada" repeat=infinite duration=4s >}}
-- `wobble` {{< animate wobble "wobble" repeat=infinite duration=4s >}}
-- `jello` {{< animate jello "jello" repeat=infinite duration=4s >}}
-- `heartBeat` {{< animate heartBeat "heartBeat" repeat=infinite duration=4s >}}
+- `bounce` {{< animate bounce "bounce" >}}
+- `flash` {{< animate flash "flash" >}}
+- `pulse` {{< animate pulse "pulse" >}}
+- `rubberBand` {{< animate rubberBand "rubberBand" >}}
+- `shakeX` {{< animate shakeX "shakeX" >}}
+- `shakeY` {{< animate shakeY "shakeY" >}}
+- `headShake` {{< animate headShake "headShake" >}}
+- `swing` {{< animate swing "swing" >}}
+- `tada` {{< animate tada "tada" >}}
+- `wobble` {{< animate wobble "wobble" >}}
+- `jello` {{< animate jello "jello" >}}
+- `heartBeat` {{< animate heartBeat "heartBeat" >}}
 
 ### Back entrances
 
-- `backInDown` {{< animate backInDown "backInDown" repeat=infinite duration=4s >}}
-- `backInLeft` {{< animate backInLeft "backInLeft" repeat=infinite duration=4s >}}
-- `backInRight` {{< animate backInRight "backInRight" repeat=infinite duration=4s >}}
-- `backInUp` {{< animate backInUp "backInUp" repeat=infinite duration=4s >}}
+- `backInDown` {{< animate backInDown "backInDown" >}}
+- `backInLeft` {{< animate backInLeft "backInLeft" >}}
+- `backInRight` {{< animate backInRight "backInRight" >}}
+- `backInUp` {{< animate backInUp "backInUp" >}}
 
 ### Back exits
 
-- `backOutDown` {{< animate backOutDown "backOutDown" repeat=infinite duration=4s >}}
-- `backOutLeft` {{< animate backOutLeft "backOutLeft" repeat=infinite duration=4s >}}
-- `backOutRight` {{< animate backOutRight "backOutRight" repeat=infinite duration=4s >}}
-- `backOutUp` {{< animate backOutUp "backOutUp" repeat=infinite duration=4s >}}
+- `backOutDown` {{< animate backOutDown "backOutDown" >}}
+- `backOutLeft` {{< animate backOutLeft "backOutLeft" >}}
+- `backOutRight` {{< animate backOutRight "backOutRight" >}}
+- `backOutUp` {{< animate backOutUp "backOutUp" >}}
 
 ### Bouncing entrances
 
-- `bounceIn` {{< animate bounceIn "bounceIn" repeat=infinite duration=4s >}}
-- `bounceInDown` {{< animate bounceInDown "bounceInDown" repeat=infinite duration=4s >}}
-- `bounceInLeft` {{< animate bounceInLeft "bounceInLeft" repeat=infinite duration=4s >}}
-- `bounceInRight` {{< animate bounceInRight "bounceInRight" repeat=infinite duration=4s >}}
-- `bounceInUp` {{< animate bounceInUp "bounceInUp" repeat=infinite duration=4s >}}
+- `bounceIn` {{< animate bounceIn "bounceIn" >}}
+- `bounceInDown` {{< animate bounceInDown "bounceInDown" >}}
+- `bounceInLeft` {{< animate bounceInLeft "bounceInLeft" >}}
+- `bounceInRight` {{< animate bounceInRight "bounceInRight" >}}
+- `bounceInUp` {{< animate bounceInUp "bounceInUp" >}}
 
 ### Bouncing exits
 
-- `bounceOut` {{< animate bounceOut "bounceOut" repeat=infinite duration=4s >}}
-- `bounceOutDown` {{< animate bounceOutDown "bounceOutDown" repeat=infinite duration=4s >}}
-- `bounceOutLeft` {{< animate bounceOutLeft "bounceOutLeft" repeat=infinite duration=4s >}}
-- `bounceOutRight` {{< animate bounceOutRight "bounceOutRight" repeat=infinite duration=4s >}}
-- `bounceOutUp` {{< animate bounceOutUp "bounceOutUp" repeat=infinite duration=4s >}}
+- `bounceOut` {{< animate bounceOut "bounceOut" >}}
+- `bounceOutDown` {{< animate bounceOutDown "bounceOutDown" >}}
+- `bounceOutLeft` {{< animate bounceOutLeft "bounceOutLeft" >}}
+- `bounceOutRight` {{< animate bounceOutRight "bounceOutRight" >}}
+- `bounceOutUp` {{< animate bounceOutUp "bounceOutUp" >}}
 
 ### Fading entrances
 
-- `fadeIn` {{< animate fadeIn "fadeIn" repeat=infinite duration=4s >}}
-- `fadeInDown` {{< animate fadeInDown "fadeInDown" repeat=infinite duration=4s >}}
-- `fadeInDownBig` {{< animate fadeInDownBig "fadeInDownBig" repeat=infinite duration=4s >}}
-- `fadeInLeft` {{< animate fadeInLeft "fadeInLeft" repeat=infinite duration=4s >}}
-- `fadeInLeftBig` {{< animate fadeInLeftBig "fadeInLeftBig" repeat=infinite duration=4s >}}
-- `fadeInRight` {{< animate fadeInRight "fadeInRight" repeat=infinite duration=4s >}}
-- `fadeInRightBig` {{< animate fadeInRightBig "fadeInRightBig" repeat=infinite duration=4s >}}
-- `fadeInUp` {{< animate fadeInUp "fadeInUp" repeat=infinite duration=4s >}}
-- `fadeInUpBig` {{< animate fadeInUpBig "fadeInUpBig" repeat=infinite duration=4s >}}
-- `fadeInTopLeft` {{< animate fadeInTopLeft "fadeInTopLeft" repeat=infinite duration=4s >}}
-- `fadeInTopRight` {{< animate fadeInTopRight "fadeInTopRight" repeat=infinite duration=4s >}}
-- `fadeInBottomLeft` {{< animate fadeInBottomLeft "fadeInBottomLeft" repeat=infinite duration=4s >}}
-- `fadeInBottomRight` {{< animate fadeInBottomRight "fadeInBottomRight" repeat=infinite duration=4s >}}
+- `fadeIn` {{< animate fadeIn "fadeIn" >}}
+- `fadeInDown` {{< animate fadeInDown "fadeInDown" >}}
+- `fadeInDownBig` {{< animate fadeInDownBig "fadeInDownBig" >}}
+- `fadeInLeft` {{< animate fadeInLeft "fadeInLeft" >}}
+- `fadeInLeftBig` {{< animate fadeInLeftBig "fadeInLeftBig" >}}
+- `fadeInRight` {{< animate fadeInRight "fadeInRight" >}}
+- `fadeInRightBig` {{< animate fadeInRightBig "fadeInRightBig" >}}
+- `fadeInUp` {{< animate fadeInUp "fadeInUp" >}}
+- `fadeInUpBig` {{< animate fadeInUpBig "fadeInUpBig" >}}
+- `fadeInTopLeft` {{< animate fadeInTopLeft "fadeInTopLeft" >}}
+- `fadeInTopRight` {{< animate fadeInTopRight "fadeInTopRight" >}}
+- `fadeInBottomLeft` {{< animate fadeInBottomLeft "fadeInBottomLeft" >}}
+- `fadeInBottomRight` {{< animate fadeInBottomRight "fadeInBottomRight" >}}
 
 ### Fading exits
 
-- `fadeOut` {{< animate fadeOut "fadeOut" repeat=infinite duration=4s >}}
-- `fadeOutDown` {{< animate fadeOutDown "fadeOutDown" repeat=infinite duration=4s >}}
-- `fadeOutDownBig` {{< animate fadeOutDownBig "fadeOutDownBig" repeat=infinite duration=4s >}}
-- `fadeOutLeft` {{< animate fadeOutLeft "fadeOutLeft" repeat=infinite duration=4s >}}
-- `fadeOutLeftBig` {{< animate fadeOutLeftBig "fadeOutLeftBig" repeat=infinite duration=4s >}}
-- `fadeOutRight` {{< animate fadeOutRight "fadeOutRight" repeat=infinite duration=4s >}}
-- `fadeOutRightBig` {{< animate fadeOutRightBig "fadeOutRightBig" repeat=infinite duration=4s >}}
-- `fadeOutUp` {{< animate fadeOutUp "fadeOutUp" repeat=infinite duration=4s >}}
-- `fadeOutUpBig` {{< animate fadeOutUpBig "fadeOutUpBig" repeat=infinite duration=4s >}}
-- `fadeOutTopLeft` {{< animate fadeOutTopLeft "fadeOutTopLeft" repeat=infinite duration=4s >}}
-- `fadeOutTopRight` {{< animate fadeOutTopRight "fadeOutTopRight" repeat=infinite duration=4s >}}
-- `fadeOutBottomRight` {{< animate fadeOutBottomRight "fadeOutBottomRight" repeat=infinite duration=4s >}}
-- `fadeOutBottomLeft` {{< animate fadeOutBottomLeft "fadeOutBottomLeft" repeat=infinite duration=4s >}}
+- `fadeOut` {{< animate fadeOut "fadeOut" >}}
+- `fadeOutDown` {{< animate fadeOutDown "fadeOutDown" >}}
+- `fadeOutDownBig` {{< animate fadeOutDownBig "fadeOutDownBig" >}}
+- `fadeOutLeft` {{< animate fadeOutLeft "fadeOutLeft" >}}
+- `fadeOutLeftBig` {{< animate fadeOutLeftBig "fadeOutLeftBig" >}}
+- `fadeOutRight` {{< animate fadeOutRight "fadeOutRight" >}}
+- `fadeOutRightBig` {{< animate fadeOutRightBig "fadeOutRightBig" >}}
+- `fadeOutUp` {{< animate fadeOutUp "fadeOutUp" >}}
+- `fadeOutUpBig` {{< animate fadeOutUpBig "fadeOutUpBig" >}}
+- `fadeOutTopLeft` {{< animate fadeOutTopLeft "fadeOutTopLeft" >}}
+- `fadeOutTopRight` {{< animate fadeOutTopRight "fadeOutTopRight" >}}
+- `fadeOutBottomRight` {{< animate fadeOutBottomRight "fadeOutBottomRight" >}}
+- `fadeOutBottomLeft` {{< animate fadeOutBottomLeft "fadeOutBottomLeft" >}}
 
 ### Flippers
 
-- `flip` {{< animate flip "flip" repeat=infinite duration=4s >}}
-- `flipInX` {{< animate flipInX "flipInX" repeat=infinite duration=4s >}}
-- `flipInY` {{< animate flipInY "flipInY" repeat=infinite duration=4s >}}
-- `flipOutX` {{< animate flipOutX "flipOutX" repeat=infinite duration=4s >}}
-- `flipOutY` {{< animate flipOutY "flipOutY" repeat=infinite duration=4s >}}
+- `flip` {{< animate flip "flip" >}}
+- `flipInX` {{< animate flipInX "flipInX" >}}
+- `flipInY` {{< animate flipInY "flipInY" >}}
+- `flipOutX` {{< animate flipOutX "flipOutX" >}}
+- `flipOutY` {{< animate flipOutY "flipOutY" >}}
 
 ### Lightspeed
 
-- `lightSpeedInRight` {{< animate lightSpeedInRight "lightSpeedInRight" repeat=infinite duration=4s >}}
-- `lightSpeedInLeft` {{< animate lightSpeedInLeft "lightSpeedInLeft" repeat=infinite duration=4s >}}
-- `lightSpeedOutRight` {{< animate lightSpeedOutRight "lightSpeedOutRight" repeat=infinite duration=4s >}}
-- `lightSpeedOutLeft` {{< animate lightSpeedOutLeft "lightSpeedOutLeft" repeat=infinite duration=4s >}}
+- `lightSpeedInRight` {{< animate lightSpeedInRight "lightSpeedInRight" >}}
+- `lightSpeedInLeft` {{< animate lightSpeedInLeft "lightSpeedInLeft" >}}
+- `lightSpeedOutRight` {{< animate lightSpeedOutRight "lightSpeedOutRight" >}}
+- `lightSpeedOutLeft` {{< animate lightSpeedOutLeft "lightSpeedOutLeft" >}}
 
 ### Rotating entrances
 
-- `rotateIn` {{< animate rotateIn "rotateIn" repeat=infinite duration=4s >}}
-- `rotateInDownLeft` {{< animate rotateInDownLeft "rotateInDownLeft" repeat=infinite duration=4s >}}
-- `rotateInDownRight` {{< animate rotateInDownRight "rotateInDownRight" repeat=infinite duration=4s >}}
-- `rotateInUpLeft` {{< animate rotateInUpLeft "rotateInUpLeft" repeat=infinite duration=4s >}}
-- `rotateInUpRight` {{< animate rotateInUpRight "rotateInUpRight" repeat=infinite duration=4s >}}
+- `rotateIn` {{< animate rotateIn "rotateIn" >}}
+- `rotateInDownLeft` {{< animate rotateInDownLeft "rotateInDownLeft" >}}
+- `rotateInDownRight` {{< animate rotateInDownRight "rotateInDownRight" >}}
+- `rotateInUpLeft` {{< animate rotateInUpLeft "rotateInUpLeft" >}}
+- `rotateInUpRight` {{< animate rotateInUpRight "rotateInUpRight" >}}
 
 ### Rotating exits
 
-- `rotateOut` {{< animate rotateOut "rotateOut" repeat=infinite duration=4s >}}
-- `rotateOutDownLeft` {{< animate rotateOutDownLeft "rotateOutDownLeft" repeat=infinite duration=4s >}}
-- `rotateOutDownRight` {{< animate rotateOutDownRight "rotateOutDownRight" repeat=infinite duration=4s >}}
-- `rotateOutUpLeft` {{< animate rotateOutUpLeft "rotateOutUpLeft" repeat=infinite duration=4s >}}
-- `rotateOutUpRight` {{< animate rotateOutUpRight "rotateOutUpRight" repeat=infinite duration=4s >}}
+- `rotateOut` {{< animate rotateOut "rotateOut" >}}
+- `rotateOutDownLeft` {{< animate rotateOutDownLeft "rotateOutDownLeft" >}}
+- `rotateOutDownRight` {{< animate rotateOutDownRight "rotateOutDownRight" >}}
+- `rotateOutUpLeft` {{< animate rotateOutUpLeft "rotateOutUpLeft" >}}
+- `rotateOutUpRight` {{< animate rotateOutUpRight "rotateOutUpRight" >}}
 
 ### Specials
 
-- `hinge` {{< animate hinge "hinge" repeat=infinite duration=4s >}}
-- `jackInTheBox` {{< animate jackInTheBox "jackInTheBox" repeat=infinite duration=4s >}}
-- `rollIn` {{< animate rollIn "rollIn" repeat=infinite duration=4s >}}
-- `rollOut` {{< animate rollOut "rollOut" repeat=infinite duration=4s >}}
+- `hinge` {{< animate hinge "hinge" >}}
+- `jackInTheBox` {{< animate jackInTheBox "jackInTheBox" >}}
+- `rollIn` {{< animate rollIn "rollIn" >}}
+- `rollOut` {{< animate rollOut "rollOut" >}}
 
 ### Zooming entrances
 
-- `zoomIn` {{< animate zoomIn "zoomIn" repeat=infinite duration=4s >}}
-- `zoomInDown` {{< animate zoomInDown "zoomInDown" repeat=infinite duration=4s >}}
-- `zoomInLeft` {{< animate zoomInLeft "zoomInLeft" repeat=infinite duration=4s >}}
-- `zoomInRight` {{< animate zoomInRight "zoomInRight" repeat=infinite duration=4s >}}
-- `zoomInUp` {{< animate zoomInUp "zoomInUp" repeat=infinite duration=4s >}}
+- `zoomIn` {{< animate zoomIn "zoomIn" >}}
+- `zoomInDown` {{< animate zoomInDown "zoomInDown" >}}
+- `zoomInLeft` {{< animate zoomInLeft "zoomInLeft" >}}
+- `zoomInRight` {{< animate zoomInRight "zoomInRight" >}}
+- `zoomInUp` {{< animate zoomInUp "zoomInUp" >}}
 
 ### Zooming exits
 
-- `zoomOut` {{< animate zoomOut "zoomOut" repeat=infinite duration=4s >}}
-- `zoomOutDown` {{< animate zoomOutDown "zoomOutDown" repeat=infinite duration=4s >}}
-- `zoomOutLeft` {{< animate zoomOutLeft "zoomOutLeft" repeat=infinite duration=4s >}}
-- `zoomOutRight` {{< animate zoomOutRight "zoomOutRight" repeat=infinite duration=4s >}}
-- `zoomOutUp` {{< animate zoomOutUp "zoomOutUp" repeat=infinite duration=4s >}}
+- `zoomOut` {{< animate zoomOut "zoomOut" >}}
+- `zoomOutDown` {{< animate zoomOutDown "zoomOutDown" >}}
+- `zoomOutLeft` {{< animate zoomOutLeft "zoomOutLeft" >}}
+- `zoomOutRight` {{< animate zoomOutRight "zoomOutRight" >}}
+- `zoomOutUp` {{< animate zoomOutUp "zoomOutUp" >}}
 
 ### Sliding entrances
 
-- `slideInDown` {{< animate slideInDown "slideInDown" repeat=infinite duration=4s >}}
-- `slideInLeft` {{< animate slideInLeft "slideInLeft" repeat=infinite duration=4s >}}
-- `slideInRight` {{< animate slideInRight "slideInRight" repeat=infinite duration=4s >}}
-- `slideInUp` {{< animate slideInUp "slideInUp" repeat=infinite duration=4s >}}
+- `slideInDown` {{< animate slideInDown "slideInDown" >}}
+- `slideInLeft` {{< animate slideInLeft "slideInLeft" >}}
+- `slideInRight` {{< animate slideInRight "slideInRight" >}}
+- `slideInUp` {{< animate slideInUp "slideInUp" >}}
 
 ### Sliding exits
 
-- `slideOutDown` {{< animate slideOutDown "slideOutDown" repeat=infinite duration=4s >}}
-- `slideOutLeft` {{< animate slideOutLeft "slideOutLeft" repeat=infinite duration=4s >}}
-- `slideOutRight` {{< animate slideOutRight "slideOutRight" repeat=infinite duration=4s >}}
-- `slideOutUp` {{< animate slideOutUp "slideOutUp" repeat=infinite duration=4s >}}
+- `slideOutDown` {{< animate slideOutDown "slideOutDown" >}}
+- `slideOutLeft` {{< animate slideOutLeft "slideOutLeft" >}}
+- `slideOutRight` {{< animate slideOutRight "slideOutRight" >}}
+- `slideOutUp` {{< animate slideOutUp "slideOutUp" >}}
