@@ -22,21 +22,10 @@
 # SOFTWARE.
 ]]
 
---- Pandoc utility function for converting values to strings
---- @type function
-local stringify = pandoc.utils.stringify
+--- Load utils module
+local utils_path = quarto.utils.resolve_path("utils.lua")
+local utils = require(utils_path)
 
---- Check if a string is empty or nil.
---- Utility function to determine if a value is empty or nil,
---- which is useful for parameter validation throughout the module.
---- @param s string|nil|table The value to check for emptiness
---- @return boolean True if the value is nil or empty, false otherwise
---- @usage local result = is_empty("") -- returns true
---- @usage local result = is_empty(nil) -- returns true
---- @usage local result = is_empty("hello") -- returns false
-local function is_empty(s)
-  return s == nil or s == ''
-end
 
 --- Validate if the effect is a supported animation.
 --- Checks if the provided animation effect is supported by the Animate.css library.
@@ -47,7 +36,7 @@ end
 --- @usage local classes = is_valid_animation("invalid") -- returns ""
 --- @see https://animate.style/ For complete list of available animations
 local function is_valid_animation(effect)
-  if is_empty(effect) then
+  if utils.is_empty(effect) then
     return ''
   end
 
@@ -187,8 +176,8 @@ local html_deps_added = false
 --- @return string The resolved option value
 --- @usage local duration = get_animate_options('duration', meta['animate'], animate_options)
 local function get_animate_options(x, meta, default)
-  if meta and meta[x] and not is_empty(meta[x]) then
-    return stringify(meta[x])
+  if meta and meta[x] and not utils.is_empty(meta[x]) then
+    return utils.stringify(meta[x])
   end
   return default[x]
 end
@@ -260,21 +249,21 @@ function animate(args, kwargs, meta)
     ensure_html_deps(options)
 
     -- Validate and get animation CSS classes
-    local animation = is_valid_animation(stringify(args[1]))
-    if is_empty(animation) then
+    local animation = is_valid_animation(utils.stringify(args[1]))
+    if utils.is_empty(animation) then
       return pandoc.Null()
     end
 
     -- Process delay parameter with fallback to options
-    local animate_delay = stringify(kwargs["delay"]) or options['delay']
-    if is_empty(animate_delay) then
+    local animate_delay = utils.stringify(kwargs["delay"]) or options['delay']
+    if utils.is_empty(animate_delay) then
       animate_delay = options['delay']
     end
     local attr_delay = ' animate__delay-' .. animate_delay
 
     -- Process repeat parameter with fallback to options
-    local animate_repeat = stringify(kwargs["repeat"])
-    if is_empty(animate_repeat) then
+    local animate_repeat = utils.stringify(kwargs["repeat"])
+    if utils.is_empty(animate_repeat) then
       animate_repeat = options['repeat']
     end
     local attr_repeat = ''
@@ -285,8 +274,8 @@ function animate(args, kwargs, meta)
     end
 
     -- Process duration parameter with fallback to options
-    local animate_duration = stringify(kwargs["duration"]) or options['duration']
-    if is_empty(animate_duration) then
+    local animate_duration = utils.stringify(kwargs["duration"]) or options['duration']
+    if utils.is_empty(animate_duration) then
       animate_duration = options['duration']
     end
     local attr_duration = 'style="display: inline-block;animation-duration:' .. animate_duration .. '"'
@@ -295,7 +284,7 @@ function animate(args, kwargs, meta)
     return pandoc.RawInline(
       'html',
       '<span class="' .. animation .. attr_delay .. attr_repeat .. '" ' ..
-      attr_duration .. '>' .. stringify(args[2]) .. '</span>'
+      attr_duration .. '>' .. utils.stringify(args[2]) .. '</span>'
     )
   else
     -- Return null for non-HTML formats
