@@ -23,10 +23,8 @@
 ]]
 
 --- Load utils and validation modules
-local utils_path = quarto.utils.resolve_path("_modules/utils.lua")
-local utils = require(utils_path)
-local validation_path = quarto.utils.resolve_path("_modules/validation.lua")
-local validation = require(validation_path)
+local utils = require(quarto.utils.resolve_path("_modules/utils.lua"):gsub("%.lua$", ""))
+local validation = require(quarto.utils.resolve_path("_modules/validation.lua"):gsub("%.lua$", ""))
 
 --- Array of supported animation effects from Animate.css library
 --- @type string[] List of all valid animation names
