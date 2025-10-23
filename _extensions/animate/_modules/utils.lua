@@ -25,7 +25,7 @@
 --- MC Utils - Common utility functions for Quarto Lua filters and shortcodes
 --- @module utils
 --- @author Mickaël Canouil
---- @version 1.1.0
+--- @version 1.0.0
 
 local utils_module = {}
 
