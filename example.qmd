@@ -1,6 +1,8 @@
 ---
 title: 'Animate.css Extension for Quarto'
-format: html
+format:
+  html:
+    output-file: index
 extensions:
   animate:
     delay: 5s
