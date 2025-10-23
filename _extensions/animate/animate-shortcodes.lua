@@ -9,10 +9,10 @@
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,211 +22,44 @@
 # SOFTWARE.
 ]]
 
---- Pandoc utility function for converting values to strings
---- @type function
-local stringify = pandoc.utils.stringify
+--- Load utils and validation modules
+local utils = require(quarto.utils.resolve_path("_modules/utils.lua"):gsub("%.lua$", ""))
+local validation = require(quarto.utils.resolve_path("_modules/validation.lua"):gsub("%.lua$", ""))
 
---- Check if a string is empty or nil.
---- Utility function to determine if a value is empty or nil,
---- which is useful for parameter validation throughout the module.
---- @param s string|nil|table The value to check for emptiness
---- @return boolean True if the value is nil or empty, false otherwise
---- @usage local result = is_empty("") -- returns true
---- @usage local result = is_empty(nil) -- returns true
---- @usage local result = is_empty("hello") -- returns false
-local function is_empty(s)
-  return s == nil or s == ''
-end
-
---- Validate if the effect is a supported animation.
---- Checks if the provided animation effect is supported by the Animate.css library.
---- Returns the formatted CSS classes if valid, or an empty string if invalid.
---- @param effect string|nil The animation effect name to validate
---- @return string The formatted CSS class string or empty string if invalid
---- @usage local classes = is_valid_animation("bounce") -- returns "animate__animated animate__bounce"
---- @usage local classes = is_valid_animation("invalid") -- returns ""
+--- Array of supported animation effects from Animate.css library
+--- @type string[] List of all valid animation names
 --- @see https://animate.style/ For complete list of available animations
-local function is_valid_animation(effect)
-  if is_empty(effect) then
-    return ''
-  end
-
-  --- Array of supported animation effects from Animate.css library
-  --- @type string[] List of all valid animation names
-  local animation_array = {
-    "bounce",
-    "flash",
-    "pulse",
-    "rubberBand",
-    "shakeX",
-    "shakeY",
-    "headShake",
-    "swing",
-    "tada",
-    "wobble",
-    "jello",
-    "heartBeat",
-    "backInDown",
-    "backInLeft",
-    "backInRight",
-    "backInUp",
-    "backOutDown",
-    "backOutLeft",
-    "backOutRight",
-    "backOutUp",
-    "bounceIn",
-    "bounceInDown",
-    "bounceInLeft",
-    "bounceInRight",
-    "bounceInUp",
-    "bounceOut",
-    "bounceOutDown",
-    "bounceOutLeft",
-    "bounceOutRight",
-    "bounceOutUp",
-    "fadeIn",
-    "fadeInDown",
-    "fadeInDownBig",
-    "fadeInLeft",
-    "fadeInLeftBig",
-    "fadeInRight",
-    "fadeInRightBig",
-    "fadeInUp",
-    "fadeInUpBig",
-    "fadeInTopLeft",
-    "fadeInTopRight",
-    "fadeInBottomLeft",
-    "fadeInBottomRight",
-    "fadeOut",
-    "fadeOutDown",
-    "fadeOutDownBig",
-    "fadeOutLeft",
-    "fadeOutLeftBig",
-    "fadeOutRight",
-    "fadeOutRightBig",
-    "fadeOutUp",
-    "fadeOutUpBig",
-    "fadeOutTopLeft",
-    "fadeOutTopRight",
-    "fadeOutBottomRight",
-    "fadeOutBottomLeft",
-    "flip",
-    "flipInX",
-    "flipInY",
-    "flipOutX",
-    "flipOutY",
-    "lightSpeedInRight",
-    "lightSpeedInLeft",
-    "lightSpeedOutRight",
-    "lightSpeedOutLeft",
-    "rotateIn",
-    "rotateInDownLeft",
-    "rotateInDownRight",
-    "rotateInUpLeft",
-    "rotateInUpRight",
-    "rotateOut",
-    "rotateOutDownLeft",
-    "rotateOutDownRight",
-    "rotateOutUpLeft",
-    "rotateOutUpRight",
-    "hinge",
-    "jackInTheBox",
-    "rollIn",
-    "rollOut",
-    "zoomIn",
-    "zoomInDown",
-    "zoomInLeft",
-    "zoomInRight",
-    "zoomInUp",
-    "zoomOut",
-    "zoomOutDown",
-    "zoomOutLeft",
-    "zoomOutRight",
-    "zoomOutUp",
-    "slideInDown",
-    "slideInLeft",
-    "slideInRight",
-    "slideInUp",
-    "slideOutDown",
-    "slideOutLeft",
-    "slideOutRight",
-    "slideOutUp",
-  }
-
-  -- Check if the provided effect matches any supported animation
-  for _, value in ipairs(animation_array) do
-    if value == effect then
-      return 'animate__animated animate__' .. effect
-    end
-  end
-
-  -- Return empty string if animation is not supported
-  return ''
-end
+local animation_array = {
+  "bounce", "flash", "pulse", "rubberBand", "shakeX", "shakeY", "headShake",
+  "swing", "tada", "wobble", "jello", "heartBeat",
+  "backInDown", "backInLeft", "backInRight", "backInUp",
+  "backOutDown", "backOutLeft", "backOutRight", "backOutUp",
+  "bounceIn", "bounceInDown", "bounceInLeft", "bounceInRight", "bounceInUp",
+  "bounceOut", "bounceOutDown", "bounceOutLeft", "bounceOutRight", "bounceOutUp",
+  "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInLeft", "fadeInLeftBig",
+  "fadeInRight", "fadeInRightBig", "fadeInUp", "fadeInUpBig",
+  "fadeInTopLeft", "fadeInTopRight", "fadeInBottomLeft", "fadeInBottomRight",
+  "fadeOut", "fadeOutDown", "fadeOutDownBig", "fadeOutLeft", "fadeOutLeftBig",
+  "fadeOutRight", "fadeOutRightBig", "fadeOutUp", "fadeOutUpBig",
+  "fadeOutTopLeft", "fadeOutTopRight", "fadeOutBottomRight", "fadeOutBottomLeft",
+  "flip", "flipInX", "flipInY", "flipOutX", "flipOutY",
+  "lightSpeedInRight", "lightSpeedInLeft", "lightSpeedOutRight", "lightSpeedOutLeft",
+  "rotateIn", "rotateInDownLeft", "rotateInDownRight", "rotateInUpLeft", "rotateInUpRight",
+  "rotateOut", "rotateOutDownLeft", "rotateOutDownRight", "rotateOutUpLeft", "rotateOutUpRight",
+  "hinge", "jackInTheBox", "rollIn", "rollOut",
+  "zoomIn", "zoomInDown", "zoomInLeft", "zoomInRight", "zoomInUp",
+  "zoomOut", "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp",
+  "slideInDown", "slideInLeft", "slideInRight", "slideInUp",
+  "slideOutDown", "slideOutLeft", "slideOutRight", "slideOutUp"
+}
 
 --- Default animation options configuration
 --- @type table<string, string> Default values for animation properties
-local animate_options = {
+local animate_defaults = {
   ["duration"] = "3s", -- Default animation duration
   ["delay"] = "2s",    -- Default animation delay before starting
   ["repeat"] = "1"     -- Default number of animation repetitions
 }
-
---- Global variable to track if HTML dependencies have been added
---- Prevents duplicate dependency injection in the document
---- @type boolean Flag indicating whether HTML dependencies are already loaded
-local html_deps_added = false
-
---- Get animate option from arguments or metadata.
---- Retrieves animation configuration values with fallback hierarchy:
---- 1. Document metadata values
---- 2. Default values from animate_options
---- @param x string The option key to retrieve (duration, delay, repeat)
---- @param meta table|nil Document metadata containing animate configuration
---- @param default table<string, string> Default options table to fall back to
---- @return string The resolved option value
---- @usage local duration = get_animate_options('duration', meta['animate'], animate_options)
-local function get_animate_options(x, meta, default)
-  if meta and meta[x] and not is_empty(meta[x]) then
-    return stringify(meta[x])
-  end
-  return default[x]
-end
-
---- Ensure HTML dependencies for animate are added.
---- Adds the necessary CSS and JavaScript dependencies for animations to work.
---- Only adds dependencies once per document to avoid duplication.
---- Handles both regular HTML output and RevealJS presentations.
---- @param options table<string, string> Animation options containing duration, delay, and repeat values
---- @return nil This function doesn't return a value, it modifies the document
---- @usage ensure_html_deps({duration = "2s", delay = "1s", repeat = "3"})
-local function ensure_html_deps(options)
-  -- Exit early if dependencies are already added
-  if html_deps_added then
-    return
-  end
-
-  -- Add core Animate.css stylesheet and CSS custom properties
-  quarto.doc.add_html_dependency({
-    name = 'animate',
-    version = '4.1.1',
-    stylesheets = { "animate.min.css" },
-    head = "<style>:root{--animate-duration:" .. options['duration'] ..
-        ";--animate-delay:" .. options['delay'] ..
-        ";--animate-repeat:" .. options['repeat'] .. "}</style>"
-  })
-
-  -- Add additional JavaScript for RevealJS presentations
-  if quarto.doc.is_format("revealjs") then
-    quarto.doc.add_html_dependency({
-      name = "animatejs",
-      scripts = { { path = "animate.js", afterBody = true } }
-    })
-  end
-
-  -- Mark dependencies as added to prevent duplication
-  html_deps_added = true
-end
 
 --- Animate shortcode handler.
 --- Main function that processes the animate shortcode and generates the appropriate HTML output.
@@ -246,56 +79,58 @@ end
 --- @return pandoc.RawInline|nil HTML span element with animation classes or null for non-HTML formats
 --- @usage {{< animate bounce delay=1s >}}Hello World{{< /animate >}}
 --- @usage {{< animate fadeIn duration=3s repeat=infinite >}}Animated text{{< /animate >}}
-function animate(args, kwargs, meta)
+local function animate(args, kwargs, meta)
   -- Only process for HTML-based formats (excluding epub which won't handle animations)
   if quarto.doc.is_format("html:js") then
-    -- Build options table with fallbacks to metadata or defaults
-    local options = {
-      ["duration"] = get_animate_options('duration', meta and meta['animate'] or nil, animate_options),
-      ["delay"] = get_animate_options('delay', meta and meta['animate'] or nil, animate_options),
-      ["repeat"] = get_animate_options('repeat', meta and meta['animate'] or nil, animate_options)
-    }
+    -- Get options using new utility function with fallback hierarchy
+    local options = utils.get_options({
+      extension = 'animate',
+      keys = { 'duration', 'delay', 'repeat' },
+      args = kwargs,
+      meta = meta,
+      defaults = animate_defaults
+    })
 
-    -- Ensure required dependencies are loaded
-    ensure_html_deps(options)
+    -- Ensure required dependencies are loaded (using new utility function)
+    utils.ensure_html_dependency({
+      name = 'animate',
+      version = '4.1.1',
+      stylesheets = { "animate.min.css" },
+      head = "<style>:root{--animate-duration:" .. options['duration'] ..
+          ";--animate-delay:" .. options['delay'] ..
+          ";--animate-repeat:" .. options['repeat'] .. "}</style>"
+    })
 
-    -- Validate and get animation CSS classes
-    local animation = is_valid_animation(stringify(args[1]))
-    if is_empty(animation) then
+    -- Add RevealJS-specific JavaScript if needed
+    if quarto.doc.is_format("revealjs") then
+      utils.ensure_html_dependency({
+        name = "animatejs",
+        scripts = { { path = "animate.js", afterBody = true } }
+      })
+    end
+
+    -- Validate animation effect using new validation module
+    local animation = validation.is_valid_value(
+      utils.stringify(args[1]),
+      animation_array,
+      'animate__animated animate__'
+    )
+    if animation == nil then
       return pandoc.Null()
     end
 
-    -- Process delay parameter with fallback to options
-    local animate_delay = stringify(kwargs["delay"]) or options['delay']
-    if is_empty(animate_delay) then
-      animate_delay = options['delay']
-    end
-    local attr_delay = ' animate__delay-' .. animate_delay
-
-    -- Process repeat parameter with fallback to options
-    local animate_repeat = stringify(kwargs["repeat"])
-    if is_empty(animate_repeat) then
-      animate_repeat = options['repeat']
-    end
-    local attr_repeat = ''
-    if (animate_repeat == "infinite") then
-      attr_repeat = ' animate__' .. animate_repeat
-    else
-      attr_repeat = ' animate__repeat-' .. animate_repeat
-    end
-
-    -- Process duration parameter with fallback to options
-    local animate_duration = stringify(kwargs["duration"]) or options['duration']
-    if is_empty(animate_duration) then
-      animate_duration = options['duration']
-    end
-    local attr_duration = 'style="display: inline-block;animation-duration:' .. animate_duration .. '"'
+    -- Build animation attributes
+    local attr_delay = ' animate__delay-' .. options['delay']
+    local attr_repeat = options['repeat'] == "infinite"
+        and ' animate__infinite'
+        or ' animate__repeat-' .. options['repeat']
+    local attr_duration = 'style="display: inline-block;animation-duration:' .. options['duration'] .. '"'
 
     -- Generate and return the animated HTML span element
     return pandoc.RawInline(
       'html',
       '<span class="' .. animation .. attr_delay .. attr_repeat .. '" ' ..
-      attr_duration .. '>' .. stringify(args[2]) .. '</span>'
+      attr_duration .. '>' .. utils.stringify(args[2]) .. '</span>'
     )
   else
     -- Return null for non-HTML formats
