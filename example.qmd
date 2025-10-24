@@ -10,10 +10,12 @@ extensions:
     repeat: 3
 ---
 
-## Using the extension
+## Usage
 
-This extension provides support and shortcode to [animate.css](https://animate.style/).  
+This extension provides support and shortcode to [animate.css](https://animate.style/).
+
 Animations are only available for HTML-based documents.
+
 It provides an `{{{< animate >}}}` shortcode:
 
 - Mandatory `<effect>` and `<text>`:
@@ -28,8 +30,7 @@ It provides an `{{{< animate >}}}` shortcode:
   {{{< animate <effect> "<text>" <delay=...> <duration=...> <repeat=...> >}}}
   ```
 
-  `<delay=...>` and `<duration=...>` are durations requiring unit, _e.g._, `1s` or `800ms`.  
-  See <https://animate.style/> for more details.
+  `<delay=...>` and `<duration=...>` are durations requiring unit, _e.g._, `1s` or `800ms`. See <https://animate.style/> for more details.
 
 For example:
 
@@ -77,9 +78,9 @@ Or:
 [HTML](https://m.canouil.fr/quarto-animate/)
 :::
 
-## Available effects:
+## Available Effects
 
-### Attention seekers
+### Attention Seekers
 
 - `bounce` {{< animate bounce "bounce" >}}
 - `flash` {{< animate flash "flash" >}}
@@ -94,21 +95,21 @@ Or:
 - `jello` {{< animate jello "jello" >}}
 - `heartBeat` {{< animate heartBeat "heartBeat" >}}
 
-### Back entrances
+### Back Entrances
 
 - `backInDown` {{< animate backInDown "backInDown" >}}
 - `backInLeft` {{< animate backInLeft "backInLeft" >}}
 - `backInRight` {{< animate backInRight "backInRight" >}}
 - `backInUp` {{< animate backInUp "backInUp" >}}
 
-### Back exits
+### Back Exits
 
 - `backOutDown` {{< animate backOutDown "backOutDown" >}}
 - `backOutLeft` {{< animate backOutLeft "backOutLeft" >}}
 - `backOutRight` {{< animate backOutRight "backOutRight" >}}
 - `backOutUp` {{< animate backOutUp "backOutUp" >}}
 
-### Bouncing entrances
+### Bouncing Entrances
 
 - `bounceIn` {{< animate bounceIn "bounceIn" >}}
 - `bounceInDown` {{< animate bounceInDown "bounceInDown" >}}
@@ -116,7 +117,7 @@ Or:
 - `bounceInRight` {{< animate bounceInRight "bounceInRight" >}}
 - `bounceInUp` {{< animate bounceInUp "bounceInUp" >}}
 
-### Bouncing exits
+### Bouncing Exits
 
 - `bounceOut` {{< animate bounceOut "bounceOut" >}}
 - `bounceOutDown` {{< animate bounceOutDown "bounceOutDown" >}}
@@ -124,7 +125,7 @@ Or:
 - `bounceOutRight` {{< animate bounceOutRight "bounceOutRight" >}}
 - `bounceOutUp` {{< animate bounceOutUp "bounceOutUp" >}}
 
-### Fading entrances
+### Fading Entrances
 
 - `fadeIn` {{< animate fadeIn "fadeIn" >}}
 - `fadeInDown` {{< animate fadeInDown "fadeInDown" >}}
@@ -140,7 +141,7 @@ Or:
 - `fadeInBottomLeft` {{< animate fadeInBottomLeft "fadeInBottomLeft" >}}
 - `fadeInBottomRight` {{< animate fadeInBottomRight "fadeInBottomRight" >}}
 
-### Fading exits
+### Fading Exits
 
 - `fadeOut` {{< animate fadeOut "fadeOut" >}}
 - `fadeOutDown` {{< animate fadeOutDown "fadeOutDown" >}}
@@ -171,7 +172,7 @@ Or:
 - `lightSpeedOutRight` {{< animate lightSpeedOutRight "lightSpeedOutRight" >}}
 - `lightSpeedOutLeft` {{< animate lightSpeedOutLeft "lightSpeedOutLeft" >}}
 
-### Rotating entrances
+### Rotating Entrances
 
 - `rotateIn` {{< animate rotateIn "rotateIn" >}}
 - `rotateInDownLeft` {{< animate rotateInDownLeft "rotateInDownLeft" >}}
@@ -179,7 +180,7 @@ Or:
 - `rotateInUpLeft` {{< animate rotateInUpLeft "rotateInUpLeft" >}}
 - `rotateInUpRight` {{< animate rotateInUpRight "rotateInUpRight" >}}
 
-### Rotating exits
+### Rotating Exits
 
 - `rotateOut` {{< animate rotateOut "rotateOut" >}}
 - `rotateOutDownLeft` {{< animate rotateOutDownLeft "rotateOutDownLeft" >}}
@@ -194,7 +195,7 @@ Or:
 - `rollIn` {{< animate rollIn "rollIn" >}}
 - `rollOut` {{< animate rollOut "rollOut" >}}
 
-### Zooming entrances
+### Zooming Entrances
 
 - `zoomIn` {{< animate zoomIn "zoomIn" >}}
 - `zoomInDown` {{< animate zoomInDown "zoomInDown" >}}
@@ -202,7 +203,7 @@ Or:
 - `zoomInRight` {{< animate zoomInRight "zoomInRight" >}}
 - `zoomInUp` {{< animate zoomInUp "zoomInUp" >}}
 
-### Zooming exits
+### Zooming Exits
 
 - `zoomOut` {{< animate zoomOut "zoomOut" >}}
 - `zoomOutDown` {{< animate zoomOutDown "zoomOutDown" >}}
@@ -210,14 +211,14 @@ Or:
 - `zoomOutRight` {{< animate zoomOutRight "zoomOutRight" >}}
 - `zoomOutUp` {{< animate zoomOutUp "zoomOutUp" >}}
 
-### Sliding entrances
+### Sliding Entrances
 
 - `slideInDown` {{< animate slideInDown "slideInDown" >}}
 - `slideInLeft` {{< animate slideInLeft "slideInLeft" >}}
 - `slideInRight` {{< animate slideInRight "slideInRight" >}}
 - `slideInUp` {{< animate slideInUp "slideInUp" >}}
 
-### Sliding exits
+### Sliding Exits
 
 - `slideOutDown` {{< animate slideOutDown "slideOutDown" >}}
 - `slideOutLeft` {{< animate slideOutLeft "slideOutLeft" >}}

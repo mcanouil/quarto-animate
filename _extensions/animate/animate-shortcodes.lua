@@ -61,6 +61,10 @@ local animate_defaults = {
   ["repeat"] = "1"     -- Default number of animation repetitions
 }
 
+--- Track whether deprecation warning has been shown
+--- @type boolean
+local deprecation_warning_shown = false
+
 --- Animate shortcode handler.
 --- Main function that processes the animate shortcode and generates the appropriate HTML output.
 --- Handles parameter parsing, validation, and HTML generation for animated elements.
@@ -82,6 +86,11 @@ local animate_defaults = {
 local function animate(args, kwargs, meta)
   -- Only process for HTML-based formats (excluding epub which won't handle animations)
   if quarto.doc.is_format("html:js") then
+    -- Check for deprecated top-level configuration
+    for _, key in ipairs({ 'duration', 'delay', 'repeat' }) do
+      _, deprecation_warning_shown = utils.check_deprecated_config(meta, 'animate', key, deprecation_warning_shown)
+    end
+
     -- Get options using new utility function with fallback hierarchy
     local options = utils.get_options({
       extension = 'animate',
