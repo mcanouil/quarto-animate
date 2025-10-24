@@ -10,13 +10,23 @@ extensions:
     repeat: 3
 ---
 
-## Usage
-
 This extension provides support and shortcode to [animate.css](https://animate.style/).
 
 Animations are only available for HTML-based documents.
 
-It provides an `{{{< animate >}}}` shortcode:
+## Installation
+
+```sh
+quarto add mcanouil/quarto-animate
+```
+
+This will install the extension under the `_extensions` subdirectory.
+
+If you're using version control, you will want to check in this directory.
+
+## Usage
+
+To animate a text, use the `{{< animate >}}` shortcode. It provides an `{{{< animate >}}}` shortcode:
 
 - Mandatory `<effect>` and `<text>`:
 
