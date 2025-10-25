@@ -32,7 +32,7 @@ If you're using version control, you will want to check in this directory.
 
 ## Usage
 
-To animate a text, use the `{{< animate >}}` shortcode. It provides an `{{{< animate >}}}` shortcode:
+To animate a text, use the `{{{< animate >}}}` shortcode:
 
 - Mandatory `<effect>` and `<text>`:
 

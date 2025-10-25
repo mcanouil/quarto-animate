@@ -22,6 +22,9 @@
 # SOFTWARE.
 ]]
 
+--- Extension name constant
+local EXTENSION_NAME = 'animate'
+
 --- Load utils and validation modules
 local utils = require(quarto.utils.resolve_path("_modules/utils.lua"):gsub("%.lua$", ""))
 local validation = require(quarto.utils.resolve_path("_modules/validation.lua"):gsub("%.lua$", ""))
@@ -86,6 +89,14 @@ local deprecation_warning_shown = false
 local function animate(args, kwargs, meta)
   -- Only process for HTML-based formats (excluding epub which won't handle animations)
   if quarto.doc.is_format("html:js") then
+    if utils.is_empty(args[1]) then
+      utils.log_error(EXTENSION_NAME, "Animation type is required as the first argument.")
+      return pandoc.Null()
+    end
+    if utils.is_empty(args[2]) then
+      utils.log_error(EXTENSION_NAME, "Animation text is required as the second argument.")
+      return pandoc.Null()
+    end
     -- Check for deprecated top-level configuration
     for _, key in ipairs({ 'duration', 'delay', 'repeat' }) do
       _, deprecation_warning_shown = utils.check_deprecated_config(meta, 'animate', key, deprecation_warning_shown)
@@ -120,7 +131,7 @@ local function animate(args, kwargs, meta)
 
     -- Validate animation effect using new validation module
     local animation = validation.is_valid_value(
-      utils.stringify(args[1]),
+      args[1] and utils.stringify(args[1]) or nil,
       animation_array,
       'animate__animated animate__'
     )
@@ -136,10 +147,11 @@ local function animate(args, kwargs, meta)
     local attr_duration = 'style="display: inline-block;animation-duration:' .. options['duration'] .. '"'
 
     -- Generate and return the animated HTML span element
+    local content = args[2] and utils.stringify(args[2]) or ''
     return pandoc.RawInline(
       'html',
       '<span class="' .. animation .. attr_delay .. attr_repeat .. '" ' ..
-      attr_duration .. '>' .. utils.stringify(args[2]) .. '</span>'
+      attr_duration .. '>' .. content .. '</span>'
     )
   else
     -- Return null for non-HTML formats
