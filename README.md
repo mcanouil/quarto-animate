@@ -7,7 +7,7 @@ Animations are only available for HTML-based documents.
 ## Installation
 
 ```sh
-quarto add mcanouil/quarto-animate
+quarto add mcanouil/quarto-animate@1.4.1
 ```
 
 This will install the extension under the `_extensions` subdirectory.
