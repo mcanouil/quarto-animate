@@ -1,33 +1,11 @@
---[[
-# MIT License
-#
-# Copyright (c) 2026 Mickaël Canouil
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-]]
-
 --- MC Validation - Common validation and lookup utilities for Quarto extensions
 --- @module validation
+--- @license MIT
+--- @copyright 2026 Mickaël Canouil
 --- @author Mickaël Canouil
 --- @version 1.0.0
 
-local validation_module = {}
+local M = {}
 
 -- ============================================================================
 -- ARRAY VALIDATION
@@ -41,9 +19,9 @@ local validation_module = {}
 --- @param valid_array table<integer, string> Array of valid values
 --- @param formatter function|string|nil Optional formatter: function(value), prefix string, or nil
 --- @return string|nil Formatted value if valid and formatter provided, empty string if valid without formatter, nil if invalid
---- @usage local result = validation_module.is_valid_value("bounce", {"bounce", "flash"}, "animate__") -- returns "animate__bounce"
---- @usage local result = validation_module.is_valid_value("invalid", {"bounce", "flash"}, "animate__") -- returns nil
-function validation_module.is_valid_value(value, valid_array, formatter)
+--- @usage local result = M.is_valid_value("bounce", {"bounce", "flash"}, "animate__") -- returns "animate__bounce"
+--- @usage local result = M.is_valid_value("invalid", {"bounce", "flash"}, "animate__") -- returns nil
+function M.is_valid_value(value, valid_array, formatter)
   if value == nil or value == '' then
     return nil
   end
@@ -73,8 +51,8 @@ end
 --- @param value any Value to check
 --- @param valid_array table<integer, any> Array of valid values
 --- @return boolean True if value is in array, false otherwise
---- @usage local exists = validation_module.in_array("bounce", {"bounce", "flash"}) -- returns true
-function validation_module.in_array(value, valid_array)
+--- @usage local exists = M.in_array("bounce", {"bounce", "flash"}) -- returns true
+function M.in_array(value, valid_array)
   if value == nil then
     return false
   end
@@ -100,9 +78,9 @@ end
 --- @param mapping table<string, string> Mapping table (keyword → value)
 --- @param default string|nil Default value if keyword not found (optional)
 --- @return string|nil Mapped value, default, or keyword itself
---- @usage local size = validation_module.keyword_to_value("large", {large = "1.2em"}) -- returns "1.2em"
---- @usage local size = validation_module.keyword_to_value("2em", {large = "1.2em"}) -- returns "2em" (passthrough)
-function validation_module.keyword_to_value(keyword, mapping, default)
+--- @usage local size = M.keyword_to_value("large", {large = "1.2em"}) -- returns "1.2em"
+--- @usage local size = M.keyword_to_value("2em", {large = "1.2em"}) -- returns "2em" (passthrough)
+function M.keyword_to_value(keyword, mapping, default)
   if keyword == nil or keyword == '' then
     return default
   end
@@ -123,7 +101,7 @@ end
 --- Predefined size keywords to CSS em values.
 --- Supports LaTeX-style size keywords, numeric multipliers, and Tailwind-style sizes.
 --- @type table<string, string>
-validation_module.SIZE_KEYWORDS = {
+M.SIZE_KEYWORDS = {
   -- LaTeX-style sizes
   ['tiny']         = '0.5em',
   ['scriptsize']   = '0.7em',
@@ -161,16 +139,16 @@ validation_module.SIZE_KEYWORDS = {
 ---
 --- @param size string|nil Size keyword or CSS value
 --- @return string CSS font-size property (e.g., "font-size: 1.2em;") or empty string
---- @usage local css = validation_module.size_to_css("large") -- returns "font-size: 1.2em;"
---- @usage local css = validation_module.size_to_css("16px") -- returns "font-size: 16px;"
-function validation_module.size_to_css(size)
+--- @usage local css = M.size_to_css("large") -- returns "font-size: 1.2em;"
+--- @usage local css = M.size_to_css("16px") -- returns "font-size: 16px;"
+function M.size_to_css(size)
   if size == nil or size == '' then
     return ''
   end
 
   -- Check if it's a predefined keyword
-  if validation_module.SIZE_KEYWORDS[size] then
-    return 'font-size: ' .. validation_module.SIZE_KEYWORDS[size] .. ';'
+  if M.SIZE_KEYWORDS[size] then
+    return 'font-size: ' .. M.SIZE_KEYWORDS[size] .. ';'
   end
 
   -- Assume it's a custom CSS value (e.g., "16px", "1.5rem")
@@ -180,7 +158,7 @@ end
 --- Predefined modal size keywords to Bootstrap classes.
 --- Maps Bootstrap modal size keywords to their corresponding CSS classes.
 --- @type table<string, string>
-validation_module.MODAL_SIZE_CLASSES = {
+M.MODAL_SIZE_CLASSES = {
   ['sm'] = 'modal-sm',
   ['lg'] = 'modal-lg',
   ['xl'] = 'modal-xl'
@@ -198,9 +176,9 @@ validation_module.MODAL_SIZE_CLASSES = {
 --- @param extensions table<integer, string> Array of extensions (e.g., {".md", "qmd", ".txt"})
 --- @param case_sensitive boolean|nil Whether to match case-sensitively (default: false)
 --- @return boolean True if URI ends with one of the extensions, false otherwise
---- @usage local is_md = validation_module.has_extension("file.md", {".md", ".markdown"}) -- returns true
---- @usage local is_md = validation_module.has_extension("file.MD", {".md"}, true) -- returns false (case-sensitive)
-function validation_module.has_extension(uri, extensions, case_sensitive)
+--- @usage local is_md = M.has_extension("file.md", {".md", ".markdown"}) -- returns true
+--- @usage local is_md = M.has_extension("file.MD", {".md"}, true) -- returns false (case-sensitive)
+function M.has_extension(uri, extensions, case_sensitive)
   if uri == nil or uri == '' or extensions == nil then
     return false
   end
@@ -234,13 +212,13 @@ end
 ---
 --- @param uri string|nil File URI to check
 --- @return boolean True if markdown file, false otherwise
---- @usage local is_markdown = validation_module.is_markdown("doc.qmd") -- returns true
-function validation_module.is_markdown(uri)
-  return validation_module.has_extension(uri, { '.md', '.markdown', '.qmd' })
+--- @usage local is_markdown = M.is_markdown("doc.qmd") -- returns true
+function M.is_markdown(uri)
+  return M.has_extension(uri, { '.md', '.markdown', '.qmd' })
 end
 
 -- ============================================================================
 -- MODULE EXPORT
 -- ============================================================================
 
-return validation_module
+return M
