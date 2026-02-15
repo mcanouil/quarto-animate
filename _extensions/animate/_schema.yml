@@ -1,13 +1,5 @@
-# _schema.yml for "animate" shortcode extension
-# Describes options, shortcode arguments, and attributes for IDE tooling and runtime validation.
+# Schema for the animate extension
 
-# Extension-level metadata options.
-# Configured in _quarto.yml, _metadata.yml, or document front matter:
-#   extensions:
-#     animate:
-#       duration: "3s"
-#       delay: "2s"
-#       repeat: "1"
 options:
   duration:
     type: string
