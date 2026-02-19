@@ -1,0 +1,12 @@
+{
+	"Animate text": {
+		"prefix": "animate",
+		"body": "{{< animate ${1:bounce} \"${2:text}\" >}}",
+		"description": "Animate text with an Animate.css effect"
+	},
+	"Animate with options": {
+		"prefix": "animate-opts",
+		"body": "{{< animate ${1:bounce} \"${2:text}\" duration=${3:1s} delay=${4:0s} repeat=${5:1} >}}",
+		"description": "Animate text with duration, delay, and repeat options"
+	}
+}
