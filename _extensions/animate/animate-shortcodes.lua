@@ -6,9 +6,10 @@
 --- Extension name constant
 local EXTENSION_NAME = 'animate'
 
---- Load utils and validation modules
+--- Load utils, validation, and schema modules
 local utils = require(quarto.utils.resolve_path("_modules/utils.lua"):gsub("%.lua$", ""))
 local validation = require(quarto.utils.resolve_path("_modules/validation.lua"):gsub("%.lua$", ""))
+local schema = require(quarto.utils.resolve_path("_modules/schema.lua"):gsub("%.lua$", ""))
 
 --- Array of supported animation effects from Animate.css library
 --- @type string[] List of all valid animation names
@@ -49,6 +50,10 @@ local animate_defaults = {
 --- @type boolean
 local deprecation_warning_shown = false
 
+--- Cached validated options from schema (lazily initialised on first shortcode call)
+--- @type table|nil
+local validated_options = nil
+
 --- Animate shortcode handler.
 --- Main function that processes the animate shortcode and generates the appropriate HTML output.
 --- Handles parameter parsing, validation, and HTML generation for animated elements.
@@ -68,6 +73,11 @@ local deprecation_warning_shown = false
 --- @usage {{< animate bounce delay=1s >}}Hello World{{< /animate >}}
 --- @usage {{< animate fadeIn duration=3s repeat=infinite >}}Animated text{{< /animate >}}
 local function animate(args, kwargs, meta)
+  -- Validate options on first call
+  if validated_options == nil then
+    validated_options = schema.validate_options(meta, EXTENSION_NAME, quarto.utils.resolve_path('_schema.yml'))
+  end
+
   -- Only process for HTML-based formats (excluding epub which won't handle animations)
   if quarto.doc.is_format("html:js") then
     if utils.is_empty(args[1]) then
@@ -83,13 +93,19 @@ local function animate(args, kwargs, meta)
       _, deprecation_warning_shown = utils.check_deprecated_config(meta, 'animate', key, deprecation_warning_shown)
     end
 
+    -- Build defaults from validated options, falling back to animate_defaults
+    local effective_defaults = {}
+    for _, key in ipairs({ 'duration', 'delay', 'repeat' }) do
+      effective_defaults[key] = validated_options[key] or animate_defaults[key]
+    end
+
     -- Get options using new utility function with fallback hierarchy
     local options = utils.get_options({
       extension = 'animate',
       keys = { 'duration', 'delay', 'repeat' },
       args = kwargs,
       meta = meta,
-      defaults = animate_defaults
+      defaults = effective_defaults
     })
 
     -- Ensure required dependencies are loaded (using new utility function)
