@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.6.1 (2026-04-15)
+
 ### Refactoring
 
 - refactor: Synchronise shared modules (`logging.lua`, `validation.lua`) with canonical versions.
