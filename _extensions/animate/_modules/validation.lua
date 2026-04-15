@@ -32,9 +32,9 @@ function M.is_valid_value(value, valid_array, formatter)
       -- Value is valid, apply formatter if provided
       if formatter == nil then
         return ''
-      elseif type(formatter) == "function" then
+      elseif type(formatter) == 'function' then
         return formatter(value)
-      elseif type(formatter) == "string" then
+      elseif type(formatter) == 'string' then
         -- Assume formatter is a prefix to add
         return formatter .. value
       end
