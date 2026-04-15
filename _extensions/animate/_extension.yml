@@ -1,6 +1,6 @@
 title: Animate.css support
 author: Mickaël Canouil
-version: 1.6.0
+version: 1.6.1
 quarto-required: ">=1.2.280"
 contributes:
   shortcodes:
