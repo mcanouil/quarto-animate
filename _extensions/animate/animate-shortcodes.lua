@@ -251,15 +251,16 @@ local function animate(args, kwargs, meta)
   end
 
   -- Validate animation effect and build the class name
+  local animation_name = str.stringify(args[1])
   local animation = validation.is_valid_value(
-    args[1] and str.stringify(args[1]) or nil,
+    animation_name,
     animation_array,
     'animate__animated animate__'
   )
   if animation == nil then
     log.log_warning(
       EXTENSION_NAME,
-      'Unknown animation "' .. (args[1] and str.stringify(args[1]) or '') ..
+      'Unknown animation "' .. animation_name ..
       '"; see https://animate.style/ for the supported list.'
     )
     return pandoc.Null()
@@ -281,7 +282,7 @@ local function animate(args, kwargs, meta)
   local attr_style = 'style="' .. table.concat(style_parts, ';') .. '"'
 
   -- Escape the content for safe HTML insertion; the shortcode is plain-text only
-  local content = args[2] and str.escape_html(str.stringify(args[2])) or ''
+  local content = str.escape_html(str.stringify(args[2]))
   return pandoc.RawInline(
     'html',
     '<span class="' .. animation .. attr_delay .. attr_repeat .. '" ' ..
