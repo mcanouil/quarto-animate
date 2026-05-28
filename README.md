@@ -7,7 +7,7 @@ Animations are only available for HTML-based documents.
 ## Installation
 
 ```sh
-quarto add mcanouil/quarto-animate@1.6.1
+quarto add mcanouil/quarto-animate@1.7.0
 ```
 
 This will install the extension under the `_extensions` subdirectory.
@@ -28,13 +28,20 @@ To animate a text, use the `{{< animate >}}` shortcode. For example:
   {{< animate <effect> "<text>" >}}
   ```
 
-- Optional `<delay=...>`, `<duration=...>`, and `<repeat=...>`:
+- Optional attributes: `delay`, `duration`, `repeat`, `stagger`, `direction`:
 
   ``` markdown
-  {{< animate <effect> "<text>" <delay=...> <duration=...> <repeat=...> >}}
+  {{< animate <effect> "<text>" delay=... duration=... repeat=... stagger=... direction=... >}}
   ```
 
-  `<delay=...>` and `<duration=...>` are durations requiring unit, _e.g._, `1s` or `800ms`. See <https://animate.style/> for more details.
+  - `delay`, `duration`, and `stagger` are CSS times and require a unit (`s` or `ms`), _e.g._, `1s` or `800ms`.
+  - `repeat` accepts a positive integer or `infinite`.
+  - `direction` accepts one of `normal`, `reverse`, `alternate`, or `alternate-reverse`.
+  - `stagger` applies a per-call increment to the delay, so successive shortcodes animate in sequence.
+
+  Invalid values emit a warning and fall back to the default; see <https://animate.style/> for more details.
+
+HTML special characters in the animated text are escaped automatically, so the resulting span always renders correctly.
 
 Defining default values for animations can be done in the YAML front matter of your document:
 
@@ -44,6 +51,8 @@ extensions:
     delay: 5s
     duration: 10s
     repeat: 3
+    stagger: 0s
+    direction: normal
 ```
 
 ## Advanced

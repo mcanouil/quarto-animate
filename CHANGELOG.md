@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## 1.7.0 (2026-05-28)
+
+### New Features
+
+- feat: Add `stagger` attribute to offset sequential animations by an incremental delay.
+- feat: Add `direction` attribute mapping to CSS `animation-direction` (`normal`, `reverse`, `alternate`, `alternate-reverse`).
+
+### Bug Fixes
+
+- fix: Escape HTML special characters in animated text so quotes, ampersands, and angle brackets render correctly.
+- fix: Validate `duration`, `delay`, `repeat`, `stagger`, and `direction` values; emit a warning and fall back to defaults on invalid input.
+- fix: Warn when an unknown animation effect is requested instead of failing silently.
+- fix: Reset module-level state on document boundaries to avoid bleed across batch renders.
+
+### Documentation
+
+- docs: Document `stagger`, `direction`, and automatic HTML escaping in the README and example.
+- docs: Extend `_schema.yml` and `_snippets.json` with the new attributes.
+
 ## 1.6.1 (2026-04-15)
 
 ### Refactoring
