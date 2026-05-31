@@ -14,9 +14,23 @@ options:
     pattern: "^\\d+\\.?\\d*m?s$"
     description: "Default delay before the animation starts (e.g., '2s', '500ms')."
   repeat:
-    type: string
+    type: integer
     default: "1"
     description: "Default number of animation repetitions (e.g., '1', '3', 'infinite')."
+  stagger:
+    type: string
+    default: "0s"
+    pattern: "^\\d+\\.?\\d*m?s$"
+    description: "Default per-element delay increment for sequential shortcode calls (e.g., '200ms')."
+  direction:
+    type: string
+    default: "normal"
+    enum:
+      - normal
+      - reverse
+      - alternate
+      - alternate-reverse
+    description: "Default CSS animation-direction."
 
 # Per-shortcode schemas.
 # Describes positional arguments and named attributes for {{< animate >}}.
@@ -142,3 +156,15 @@ shortcodes:
       repeat:
         type: string
         description: "Override the default number of repetitions (e.g., '3', 'infinite')."
+      stagger:
+        type: string
+        pattern: "^\\d+\\.?\\d*m?s$"
+        description: "Per-element delay increment for sequential shortcode calls (e.g., '200ms')."
+      direction:
+        type: string
+        enum:
+          - normal
+          - reverse
+          - alternate
+          - alternate-reverse
+        description: "Override the CSS animation-direction."

@@ -8,5 +8,15 @@
 		"prefix": "animate-opts",
 		"body": "{{< animate ${1:bounce} \"${2:text}\" duration=${3:1s} delay=${4:0s} repeat=${5:1} >}}",
 		"description": "Animate text with duration, delay, and repeat options"
+	},
+	"Animate with stagger": {
+		"prefix": "animate-stagger",
+		"body": "{{< animate ${1:fadeIn} \"${2:text}\" stagger=${3:200ms} >}}",
+		"description": "Animate text and offset each sequential call by a stagger delay"
+	},
+	"Animate with direction": {
+		"prefix": "animate-direction",
+		"body": "{{< animate ${1:bounce} \"${2:text}\" direction=${3|normal,reverse,alternate,alternate-reverse|} >}}",
+		"description": "Animate text with a CSS animation-direction"
 	}
 }

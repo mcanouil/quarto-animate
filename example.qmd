@@ -40,13 +40,17 @@ To animate a text, use the `{{{< animate >}}}` shortcode:
   {{{< animate <effect> "<text>" >}}}
   ```
 
-- Optional `<delay=...>`, `<duration=...>`, and `<repeat=...>`:
+- Optional attributes: `delay`, `duration`, `repeat`, `stagger`, `direction`:
 
   ```markdown
-  {{{< animate <effect> "<text>" <delay=...> <duration=...> <repeat=...> >}}}
+  {{{< animate <effect> "<text>" delay=... duration=... repeat=... stagger=... direction=... >}}}
   ```
 
-  `<delay=...>` and `<duration=...>` are durations requiring unit, _e.g._, `1s` or `800ms`. See <https://animate.style/> for more details.
+  - `delay`, `duration`, and `stagger` are CSS times and require a unit (`s` or `ms`), _e.g._, `1s` or `800ms`.
+  - `repeat` accepts a positive integer or `infinite`.
+  - `direction` accepts one of `normal`, `reverse`, `alternate`, or `alternate-reverse`.
+
+  Invalid values emit a warning and fall back to the default; see <https://animate.style/> for more details.
 
 For example:
 
@@ -55,6 +59,7 @@ For example:
 | `{{{< animate bounce "Some text" >}}}`                                     | {{< animate bounce "Some text" >}}                                     |
 | `{{{< animate flip "Some text" repeat=2 >}}}`                              | {{< animate flip "Some text" repeat=2 >}}                              |
 | `{{{< animate hinge "Some text" delay=3s duration=4s repeat=infinite >}}}` | {{< animate hinge "Some text" delay=1s duration=2s repeat=infinite >}} |
+| `{{{< animate bounce "Some text" direction=alternate >}}}`                 | {{< animate bounce "Some text" direction=alternate >}}                 |
 
 Defining default values for animations can be done in the YAML front matter of your document:
 
@@ -64,7 +69,39 @@ extensions:
     delay: 5s
     duration: 10s
     repeat: 3
+    stagger: 0s
+    direction: normal
 ```
+
+## Sequencing with `stagger`
+
+Pass `stagger=<time>` to add an incremental delay between sequential shortcode calls in the document.
+The first call uses the base delay; each subsequent call adds the stagger value on top.
+
+| Shortcode                                                | Text                                              |
+| -------------------------------------------------------- | ------------------------------------------------- |
+| `{{{< animate fadeIn "One" stagger=300ms >}}}`           | {{< animate fadeIn "One" stagger=300ms >}}        |
+| `{{{< animate fadeIn "Two" stagger=300ms >}}}`           | {{< animate fadeIn "Two" stagger=300ms >}}        |
+| `{{{< animate fadeIn "Three" stagger=300ms >}}}`         | {{< animate fadeIn "Three" stagger=300ms >}}      |
+
+## Direction
+
+The `direction` attribute maps to the CSS `animation-direction` property and accepts `normal`, `reverse`, `alternate`, or `alternate-reverse`.
+
+| Shortcode                                                                       | Text                                                                       |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `{{{< animate bounce "Reverse" direction=reverse repeat=2 >}}}`                 | {{< animate bounce "Reverse" direction=reverse repeat=2 >}}                |
+| `{{{< animate bounce "Alternate" direction=alternate repeat=2 >}}}`             | {{< animate bounce "Alternate" direction=alternate repeat=2 >}}            |
+
+## Special characters
+
+HTML special characters in the animated text are escaped automatically, so quotes, ampersands, and angle brackets render correctly:
+
+```markdown
+{{{< animate bounce "Cats & dogs <3" >}}}
+```
+
+{{< animate bounce "Cats & dogs <3" >}}
 
 ## Advanced
 
