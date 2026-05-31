@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.7.0 (2026-05-31)
+
 ### New Features
 
 - feat: Add `stagger` attribute to offset sequential animations by an incremental delay.
