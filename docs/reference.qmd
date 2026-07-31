@@ -1,0 +1,133 @@
+---
+title: "Reference"
+subtitle: "Every option the animate extension accepts."
+description: "The complete animate configuration: shortcode arguments, timing attributes, project defaults, validation rules, and the Animate.css behaviour behind them."
+---
+
+## Shortcode
+
+```markdown
+{{{< animate <effect> "<text>" >}}}
+{{{< animate <effect> "<text>" duration=... delay=... repeat=... stagger=... direction=... >}}}
+```
+
+| Argument | Type | Required | Description |
+| --- | --- | --- | --- |
+| `effect` | string | Yes | The Animate.css effect to play. See [Examples](examples.qmd) for the full list rendered. |
+| `text` | string | Yes | The text to animate. Quoted, and plain text only. |
+
+: Arguments of the `animate` shortcode. {.striped .hover tbl-colwidths="[15,13,12,60]"}
+
+Both arguments are positional and both are required.
+Calling the shortcode without either writes an error and renders nothing.
+
+::: {.callout-note}
+The text is plain text.
+It is HTML-escaped before it is written out, so `&`, `<`, and quotes survive, but markdown inside it is not parsed: a link written in the second argument comes out as literal characters.
+[Animating a link](examples.qmd#animating-something-other-than-plain-text) needs the Animate.css classes written directly on a span or a div.
+:::
+
+## Options
+
+The same five names work as shortcode attributes and as document or project configuration.
+
+```yaml
+extensions:
+  animate:
+    duration: 1s
+    delay: 1s
+    repeat: 1
+    stagger: 0s
+    direction: normal
+```
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `duration` | CSS time | `3s` | How long one run of the animation takes. Written as an inline style, so any value works exactly. |
+| `delay` | CSS time | `2s` | How long to wait before the animation starts. See the caution below: only whole seconds from `1s` to `5s` have any effect. |
+| `repeat` | integer or `infinite` | `1` | How many times the animation runs. Only `1`, `2`, `3`, and `infinite` have any effect. |
+| `stagger` | CSS time | `0s` | An increment added to the delay of each successive shortcode in the document, so a run of them animates in sequence. |
+| `direction` | string | `normal` | The CSS `animation-direction`. One of `normal`, `reverse`, `alternate`, `alternate-reverse`. |
+
+: Animation options, as shortcode attributes or metadata. {.striped .hover tbl-colwidths="[13,17,12,58]"}
+
+An attribute on the shortcode wins over the metadata, and the metadata wins over the defaults above.
+
+A CSS time needs its unit: `2s` or `500ms`, never a bare number.
+
+## What the timing values actually do
+
+`duration` and `direction` are written into the span's `style` attribute, so they apply exactly as given.
+
+`delay` and `repeat` are applied as Animate.css class names instead, and that library only ships a fixed set of them.
+
+| Option | Classes that exist | Everything else |
+| --- | --- | --- |
+| `delay` | `1s`, `2s`, `3s`, `4s`, `5s` | No class matches, so the animation starts immediately. |
+| `repeat` | `1`, `2`, `3`, and `infinite` | No class matches, so the animation runs once. |
+
+: Which values reach the output. {.striped .hover tbl-colwidths="[15,40,45]"}
+
+::: {.callout-caution}
+A delay of `500ms` or `2500ms` passes validation, because it is a well-formed CSS time, and then does nothing at all.
+The same is true of `repeat: 7`.
+Neither is reported as a problem: the class is simply written and never matched.
+:::
+
+There is a second surprise in how Animate.css defines those delay classes:
+
+```css
+.animate__delay-2s { animation-delay: calc(var(--animate-delay) * 2); }
+```
+
+The extension sets `--animate-delay` from your `delay` value, and the class then multiplies it.
+With `delay: 2s` the span gets `animate__delay-2s`, which resolves to two times two seconds.
+Set `delay: 1s` for the class and the variable to agree.
+
+::: {.callout-note}
+The `:root` block carrying `--animate-duration`, `--animate-delay`, and `--animate-repeat` is written once per document, from the first `animate` shortcode Quarto processes.
+Later shortcodes still get their own inline `duration`, but they do not rewrite those variables.
+:::
+
+## Sequencing with `stagger`
+
+`stagger` adds a fixed increment to the delay of each successive shortcode in a document.
+The first call uses the base delay, the second adds one increment, the third adds two, and so on.
+
+The counter is per document and resets between documents in a project render.
+
+Because the result is expressed as a delay, it inherits the limitation above: an increment that lands anywhere other than a whole second between one and five has no visible effect.
+
+## Validation
+
+Every invalid value is reported with a warning and replaced by the default rather than passed through.
+
+| Rule | What is accepted | On failure |
+| --- | --- | --- |
+| `duration`, `delay`, `stagger` | A CSS time: digits, an optional decimal part, then `s` or `ms`. | Warns, and the default is used. |
+| `repeat` | A positive integer, or `infinite`. | Warns, and `1` is used. |
+| `direction` | `normal`, `reverse`, `alternate`, `alternate-reverse`. | Warns, and `normal` is used. |
+| `effect` | One of the Animate.css effect names. | Warns, and the shortcode renders nothing, text included. |
+
+: Validation rules and what happens when a value fails them. {.striped .hover tbl-colwidths="[22,48,30]"}
+
+::: {.callout-warning}
+Configuring `duration`, `delay`, or `repeat` at the top level of the front matter, rather than under `extensions.animate`, still works but is deprecated and warns.
+:::
+
+## Output
+
+```html
+<span class="animate__animated animate__<effect> animate__delay-<delay> animate__repeat-<n>"
+      style="display: inline-block;animation-duration:<duration>">text</span>
+```
+
+`animate__repeat-<n>` becomes `animate__infinite` when `repeat` is `infinite`, and `animation-direction` joins the style only when `direction` is not `normal`.
+
+The extension loads `animate.min.css` on any HTML format, and additionally `animate.js` under `revealjs`, where the animations are triggered as each slide comes into view.
+
+## Limitations
+
+- HTML formats carrying JavaScript only. Everywhere else the shortcode and its text are dropped entirely.
+- Plain text only, as described under [Shortcode](#shortcode).
+- `delay` and `repeat` are limited to the values Animate.css ships classes for.

@@ -1,0 +1,83 @@
+---
+title: "Animate"
+subtitle: "Animate.css effects on a run of text, written as a shortcode."
+description: "What the animate extension is for, how to install it, and the smallest shortcode that plays an effect."
+authors:
+  - name: "Mickaël CANOUIL, _Ph.D._"
+    orcid: "0000-0002-3396-4549"
+    url: "https://mickael.canouil.fr"
+---
+
+[Animate.css](https://animate.style) is a stylesheet of ready-made CSS animations.
+Using it in a Quarto document by hand means remembering the right pair of class names, wrapping the text in a span, and setting `display: inline-block` every time.
+
+`animate` reduces that to one shortcode.
+Name the effect, give it the text, and the extension writes the span, validates the timing, and loads the stylesheet.
+
+## Installation
+
+```bash
+quarto add {{< var extension.reference >}}
+```
+
+This will install the extension under the `_extensions` subdirectory.
+If you are using version control, you will want to check in this directory.
+
+Or install it from your editor with [Quarto Wizard](https://m.canouil.dev/quarto-wizard):
+
+::: {.btn-group role="group" aria-label="Quarto Wizard installer options"}
+
+[Visual Studio Code](vscode://mcanouil.quarto-wizard/install?repo={{< var extension.wizard-reference >}}){.btn .btn-outline-primary title="Install {{< var extension.reference >}} in Visual Studio Code using the Quarto Wizard extension."}
+[Positron](positron://mcanouil.quarto-wizard/install?repo={{< var extension.wizard-reference >}}){.btn .btn-outline-primary title="Install {{< var extension.reference >}} in Positron using the Quarto Wizard extension."}
+[VSCodium](vscodium://mcanouil.quarto-wizard/install?repo={{< var extension.wizard-reference >}}){.btn .btn-outline-primary title="Install {{< var extension.reference >}} in VSCodium using the Quarto Wizard extension."}
+
+:::
+
+## Quick start
+
+The effect and the text are both required, and the text is quoted:
+
+```markdown
+{{{< animate bounce "Some text" >}}}
+```
+
+Which renders as {{< animate bounce "Some text" >}}.
+
+Timing is set per call:
+
+```markdown
+{{{< animate tada "Some text" duration=2s repeat=3 >}}}
+```
+
+Which renders as {{< animate tada "Some text" duration=2s repeat=3 >}}.
+
+Or once, for a whole document or project:
+
+```yaml
+extensions:
+  animate:
+    duration: 1s
+    delay: 1s
+    repeat: 1
+```
+
+See the [Reference](reference.qmd) for every option, and the [Examples](examples.qmd) for all ninety-odd effects rendered.
+
+## Where it works
+
+HTML formats that carry JavaScript, which covers `html` and `revealjs`.
+
+::: {.callout-warning}
+In every other format the shortcode produces nothing, and the text goes with it.
+Nothing is left behind: the words are dropped from the PDF, the Word file, and the ePub.
+Keep animated text decorative, or repeat it in prose that every format keeps.
+:::
+
+## Links
+
+- [Reference](reference.qmd) for the full option list.
+- [Examples](examples.qmd) for every effect rendered.
+- [Changelog](changelog.qmd) for what each release changed.
+- [Source and issues](https://github.com/mcanouil/quarto-animate) on GitHub.
+
+[Animate.css](https://animate.style) is by Daniel Eden, under the Hippocratic License 3.0.

@@ -4,3 +4,4 @@ example.html
 index.html
 /.luarc.json
 /.quarto/
+**/*.quarto_ipynb
