@@ -61,7 +61,7 @@ extensions:
     repeat: 1
 ```
 
-See the [Reference](reference.qmd) for every option, and the [Examples](examples.qmd) for all ninety-odd effects rendered.
+See the [Reference](reference.qmd) for every option, and the [Examples](examples.qmd) for all ninety-seven effects rendered.
 
 ## Where it works
 

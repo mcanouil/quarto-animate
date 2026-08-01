@@ -71,22 +71,26 @@ A CSS time needs its unit: `2s` or `500ms`, never a bare number.
 ::: {.callout-caution}
 A delay of `500ms` or `2500ms` passes validation, because it is a well-formed CSS time, and then does nothing at all.
 The same is true of `repeat: 7`.
-Neither is reported as a problem: the class is simply written and never matched.
+Neither is reported as a problem: the class is written out and never matched.
 :::
 
-There is a second surprise in how Animate.css defines those delay classes:
+There is a second surprise in how Animate.css defines those classes.
+Each one multiplies a CSS variable rather than setting an absolute value:
 
 ```css
 .animate__delay-2s { animation-delay: calc(var(--animate-delay) * 2); }
+.animate__repeat-2 { animation-iteration-count: calc(var(--animate-repeat) * 2); }
 ```
 
-The extension sets `--animate-delay` from your `delay` value, and the class then multiplies it.
-With `delay: 2s` the span gets `animate__delay-2s`, which resolves to two times two seconds.
-Set `delay: 1s` for the class and the variable to agree.
+The extension writes `--animate-delay` and `--animate-repeat` into a `:root` block from the first `animate` shortcode in the document, and every class from then on multiplies them.
+With `delay: 2s` the span gets `animate__delay-2s` on top of a variable of `2s`, which resolves to four seconds.
+With `repeat: 2` the same thing happens to the iteration count, which resolves to four runs.
+
+Keeping the first shortcode in the document at `delay: 1s` and `repeat: 1` makes the variables neutral, and every later value then means what it says.
 
 ::: {.callout-note}
-The `:root` block carrying `--animate-duration`, `--animate-delay`, and `--animate-repeat` is written once per document, from the first `animate` shortcode Quarto processes.
-Later shortcodes still get their own inline `duration`, but they do not rewrite those variables.
+That `:root` block, carrying `--animate-duration`, `--animate-delay`, and `--animate-repeat`, is written once per document.
+Later shortcodes still get their own inline `duration`, but they do not rewrite the variables.
 :::
 
 ## Sequencing with `stagger`
@@ -112,7 +116,8 @@ Every invalid value is reported with a warning and replaced by the default rathe
 : Validation rules and what happens when a value fails them. {.striped .hover tbl-colwidths="[22,48,30]"}
 
 ::: {.callout-warning}
-Configuring `duration`, `delay`, or `repeat` at the top level of the front matter, rather than under `extensions.animate`, still works but is deprecated and warns.
+Configuring `duration`, `delay`, or `repeat` at the top level of the front matter, rather than under `extensions.animate`, warns and is then ignored.
+The extension reads its options from `extensions.animate` only, so a top-level block silently leaves the defaults in place.
 :::
 
 ## Output

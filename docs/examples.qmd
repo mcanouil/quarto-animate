@@ -5,7 +5,8 @@ description: "The complete Animate.css effect gallery played by the extension, a
 ---
 
 Everything below is rendered by the extension as this page is built.
-The site leaves the options at their defaults, apart from `delay: 1s`, so what you see is what a reader gets out of the box.
+The site sets `duration: 1s` and `delay: 1s`, rather than the extension's own `3s` and `2s`, so the gallery plays without a long wait.
+Every other option is left at its default.
 
 Animations play once, as the page loads.
 Reload to watch them again.

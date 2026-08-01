@@ -119,11 +119,10 @@ extensions:
     # Blocks here are configuration to copy rather than files to save, so a
     # filename derived from the language would only add noise.
     auto-filename: false
-  # Left at the extension's own defaults, so the effects gallery on the
-  # examples page plays at the timing a reader gets out of the box.
+  # Shortened from the extension's own 3s duration and 2s delay so the effects
+  # gallery on the examples page plays without a long wait. `delay: 1s` also
+  # keeps the animate__delay-1s class in step with --animate-delay, which the
+  # class multiplies; every other option is left at its default.
   animate:
     duration: 1s
     delay: 1s
-    repeat: 1
-    stagger: 0s
-    direction: normal
