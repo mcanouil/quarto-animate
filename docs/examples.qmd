@@ -1,0 +1,252 @@
+---
+title: "Examples"
+subtitle: "Every effect, and every option, rendered."
+description: "The complete Animate.css effect gallery played by the extension, alongside worked examples of the timing options."
+---
+
+Everything below is rendered by the extension as this page is built.
+The site sets `duration: 1s` and `delay: 1s`, rather than the extension's own `3s` and `2s`, so the gallery plays without a long wait.
+Every other option is left at its default.
+
+Animations play once, as the page loads.
+Reload to watch them again.
+
+## Timing
+
+`duration` is written as an inline style, so any CSS time works exactly.
+
+| Source | Renders as |
+| --- | --- |
+| `{{{< animate pulse "Quick" duration=500ms >}}}` | {{< animate pulse "Quick" duration=500ms >}} |
+| `{{{< animate pulse "Slow" duration=4s >}}}` | {{< animate pulse "Slow" duration=4s >}} |
+
+: The same effect at two durations. {.striped .hover tbl-colwidths="[60,40]"}
+
+`repeat` maps to an Animate.css class, and only `1`, `2`, `3`, and `infinite` have one.
+
+| Source | Renders as |
+| --- | --- |
+| `{{{< animate tada "Three times" repeat=3 >}}}` | {{< animate tada "Three times" repeat=3 >}} |
+| `{{{< animate heartBeat "Forever" repeat=infinite >}}}` | {{< animate heartBeat "Forever" repeat=infinite >}} |
+
+: Repeating an animation. {.striped .hover tbl-colwidths="[60,40]"}
+
+`direction` reverses or alternates the animation, and is most visible when it repeats.
+
+| Source | Renders as |
+| --- | --- |
+| `{{{< animate bounce "Reverse" direction=reverse repeat=2 >}}}` | {{< animate bounce "Reverse" direction=reverse repeat=2 >}} |
+| `{{{< animate bounce "Alternate" direction=alternate repeat=2 >}}}` | {{< animate bounce "Alternate" direction=alternate repeat=2 >}} |
+
+: Playing an animation backwards. {.striped .hover tbl-colwidths="[60,40]"}
+
+## Sequencing
+
+`stagger` adds an increment to the delay of each successive shortcode, so a run of them arrives in order rather than together.
+
+```markdown
+{{{< animate fadeIn "One" stagger=1s >}}}
+{{{< animate fadeIn "Two" stagger=1s >}}}
+{{{< animate fadeIn "Three" stagger=1s >}}}
+```
+
+{{< animate fadeIn "One" stagger=1s >}}
+{{< animate fadeIn "Two" stagger=1s >}}
+{{< animate fadeIn "Three" stagger=1s >}}
+
+::: {.callout-note}
+The increment is applied as a delay, so it is subject to the same limitation: only whole seconds from one to five reach the output.
+An increment of `300ms` validates and then does nothing.
+:::
+
+## Special characters
+
+The text is HTML-escaped, so punctuation that would otherwise break the markup survives:
+
+```markdown
+{{{< animate bounce "Cats & dogs <3" >}}}
+```
+
+{{< animate bounce "Cats & dogs <3" >}}
+
+## Animating something other than plain text
+
+The shortcode's second argument is plain text, so markdown inside it is not parsed.
+This does not produce a link:
+
+```markdown
+{{{< animate bounce "[Animate.css](https://animate.style)" >}}}
+```
+
+Write the Animate.css classes on a span instead, which leaves the markdown to Quarto:
+
+```markdown
+[[Animate.css](https://animate.style)]{.animate__animated .animate__bounce style="display:inline-block;"}
+```
+
+[[Animate.css](https://animate.style)]{.animate__animated .animate__bounce style="display:inline-block;"}
+
+Or on a div, for a whole block:
+
+```markdown
+::: {.animate__animated .animate__bounce}
+[Animate.css](https://animate.style)
+:::
+```
+
+::: {.animate__animated .animate__bounce}
+[Animate.css](https://animate.style)
+:::
+
+## Effects
+
+Every effect the extension accepts, played by the extension.
+
+### Attention seekers
+
+- `bounce` {{< animate bounce "bounce" >}}
+- `flash` {{< animate flash "flash" >}}
+- `pulse` {{< animate pulse "pulse" >}}
+- `rubberBand` {{< animate rubberBand "rubberBand" >}}
+- `shakeX` {{< animate shakeX "shakeX" >}}
+- `shakeY` {{< animate shakeY "shakeY" >}}
+- `headShake` {{< animate headShake "headShake" >}}
+- `swing` {{< animate swing "swing" >}}
+- `tada` {{< animate tada "tada" >}}
+- `wobble` {{< animate wobble "wobble" >}}
+- `jello` {{< animate jello "jello" >}}
+- `heartBeat` {{< animate heartBeat "heartBeat" >}}
+
+### Back entrances
+
+- `backInDown` {{< animate backInDown "backInDown" >}}
+- `backInLeft` {{< animate backInLeft "backInLeft" >}}
+- `backInRight` {{< animate backInRight "backInRight" >}}
+- `backInUp` {{< animate backInUp "backInUp" >}}
+
+### Back exits
+
+- `backOutDown` {{< animate backOutDown "backOutDown" >}}
+- `backOutLeft` {{< animate backOutLeft "backOutLeft" >}}
+- `backOutRight` {{< animate backOutRight "backOutRight" >}}
+- `backOutUp` {{< animate backOutUp "backOutUp" >}}
+
+### Bouncing entrances
+
+- `bounceIn` {{< animate bounceIn "bounceIn" >}}
+- `bounceInDown` {{< animate bounceInDown "bounceInDown" >}}
+- `bounceInLeft` {{< animate bounceInLeft "bounceInLeft" >}}
+- `bounceInRight` {{< animate bounceInRight "bounceInRight" >}}
+- `bounceInUp` {{< animate bounceInUp "bounceInUp" >}}
+
+### Bouncing exits
+
+- `bounceOut` {{< animate bounceOut "bounceOut" >}}
+- `bounceOutDown` {{< animate bounceOutDown "bounceOutDown" >}}
+- `bounceOutLeft` {{< animate bounceOutLeft "bounceOutLeft" >}}
+- `bounceOutRight` {{< animate bounceOutRight "bounceOutRight" >}}
+- `bounceOutUp` {{< animate bounceOutUp "bounceOutUp" >}}
+
+### Fading entrances
+
+- `fadeIn` {{< animate fadeIn "fadeIn" >}}
+- `fadeInDown` {{< animate fadeInDown "fadeInDown" >}}
+- `fadeInDownBig` {{< animate fadeInDownBig "fadeInDownBig" >}}
+- `fadeInLeft` {{< animate fadeInLeft "fadeInLeft" >}}
+- `fadeInLeftBig` {{< animate fadeInLeftBig "fadeInLeftBig" >}}
+- `fadeInRight` {{< animate fadeInRight "fadeInRight" >}}
+- `fadeInRightBig` {{< animate fadeInRightBig "fadeInRightBig" >}}
+- `fadeInUp` {{< animate fadeInUp "fadeInUp" >}}
+- `fadeInUpBig` {{< animate fadeInUpBig "fadeInUpBig" >}}
+- `fadeInTopLeft` {{< animate fadeInTopLeft "fadeInTopLeft" >}}
+- `fadeInTopRight` {{< animate fadeInTopRight "fadeInTopRight" >}}
+- `fadeInBottomLeft` {{< animate fadeInBottomLeft "fadeInBottomLeft" >}}
+- `fadeInBottomRight` {{< animate fadeInBottomRight "fadeInBottomRight" >}}
+
+### Fading exits
+
+- `fadeOut` {{< animate fadeOut "fadeOut" >}}
+- `fadeOutDown` {{< animate fadeOutDown "fadeOutDown" >}}
+- `fadeOutDownBig` {{< animate fadeOutDownBig "fadeOutDownBig" >}}
+- `fadeOutLeft` {{< animate fadeOutLeft "fadeOutLeft" >}}
+- `fadeOutLeftBig` {{< animate fadeOutLeftBig "fadeOutLeftBig" >}}
+- `fadeOutRight` {{< animate fadeOutRight "fadeOutRight" >}}
+- `fadeOutRightBig` {{< animate fadeOutRightBig "fadeOutRightBig" >}}
+- `fadeOutUp` {{< animate fadeOutUp "fadeOutUp" >}}
+- `fadeOutUpBig` {{< animate fadeOutUpBig "fadeOutUpBig" >}}
+- `fadeOutTopLeft` {{< animate fadeOutTopLeft "fadeOutTopLeft" >}}
+- `fadeOutTopRight` {{< animate fadeOutTopRight "fadeOutTopRight" >}}
+- `fadeOutBottomRight` {{< animate fadeOutBottomRight "fadeOutBottomRight" >}}
+- `fadeOutBottomLeft` {{< animate fadeOutBottomLeft "fadeOutBottomLeft" >}}
+
+### Flippers
+
+- `flip` {{< animate flip "flip" >}}
+- `flipInX` {{< animate flipInX "flipInX" >}}
+- `flipInY` {{< animate flipInY "flipInY" >}}
+- `flipOutX` {{< animate flipOutX "flipOutX" >}}
+- `flipOutY` {{< animate flipOutY "flipOutY" >}}
+
+### Lightspeed
+
+- `lightSpeedInRight` {{< animate lightSpeedInRight "lightSpeedInRight" >}}
+- `lightSpeedInLeft` {{< animate lightSpeedInLeft "lightSpeedInLeft" >}}
+- `lightSpeedOutRight` {{< animate lightSpeedOutRight "lightSpeedOutRight" >}}
+- `lightSpeedOutLeft` {{< animate lightSpeedOutLeft "lightSpeedOutLeft" >}}
+
+### Rotating entrances
+
+- `rotateIn` {{< animate rotateIn "rotateIn" >}}
+- `rotateInDownLeft` {{< animate rotateInDownLeft "rotateInDownLeft" >}}
+- `rotateInDownRight` {{< animate rotateInDownRight "rotateInDownRight" >}}
+- `rotateInUpLeft` {{< animate rotateInUpLeft "rotateInUpLeft" >}}
+- `rotateInUpRight` {{< animate rotateInUpRight "rotateInUpRight" >}}
+
+### Rotating exits
+
+- `rotateOut` {{< animate rotateOut "rotateOut" >}}
+- `rotateOutDownLeft` {{< animate rotateOutDownLeft "rotateOutDownLeft" >}}
+- `rotateOutDownRight` {{< animate rotateOutDownRight "rotateOutDownRight" >}}
+- `rotateOutUpLeft` {{< animate rotateOutUpLeft "rotateOutUpLeft" >}}
+- `rotateOutUpRight` {{< animate rotateOutUpRight "rotateOutUpRight" >}}
+
+### Specials
+
+- `hinge` {{< animate hinge "hinge" >}}
+- `jackInTheBox` {{< animate jackInTheBox "jackInTheBox" >}}
+- `rollIn` {{< animate rollIn "rollIn" >}}
+- `rollOut` {{< animate rollOut "rollOut" >}}
+
+### Zooming entrances
+
+- `zoomIn` {{< animate zoomIn "zoomIn" >}}
+- `zoomInDown` {{< animate zoomInDown "zoomInDown" >}}
+- `zoomInLeft` {{< animate zoomInLeft "zoomInLeft" >}}
+- `zoomInRight` {{< animate zoomInRight "zoomInRight" >}}
+- `zoomInUp` {{< animate zoomInUp "zoomInUp" >}}
+
+### Zooming exits
+
+- `zoomOut` {{< animate zoomOut "zoomOut" >}}
+- `zoomOutDown` {{< animate zoomOutDown "zoomOutDown" >}}
+- `zoomOutLeft` {{< animate zoomOutLeft "zoomOutLeft" >}}
+- `zoomOutRight` {{< animate zoomOutRight "zoomOutRight" >}}
+- `zoomOutUp` {{< animate zoomOutUp "zoomOutUp" >}}
+
+### Sliding entrances
+
+- `slideInDown` {{< animate slideInDown "slideInDown" >}}
+- `slideInLeft` {{< animate slideInLeft "slideInLeft" >}}
+- `slideInRight` {{< animate slideInRight "slideInRight" >}}
+- `slideInUp` {{< animate slideInUp "slideInUp" >}}
+
+### Sliding exits
+
+- `slideOutDown` {{< animate slideOutDown "slideOutDown" >}}
+- `slideOutLeft` {{< animate slideOutLeft "slideOutLeft" >}}
+- `slideOutRight` {{< animate slideOutRight "slideOutRight" >}}
+- `slideOutUp` {{< animate slideOutUp "slideOutUp" >}}
+
+## Source
+
+The repository ships a short, standalone starting point you can copy: [`example.qmd`](https://github.com/mcanouil/quarto-animate/blob/main/example.qmd).
