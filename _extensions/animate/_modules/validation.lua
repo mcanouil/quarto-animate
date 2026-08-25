@@ -1,5 +1,5 @@
 --- MC Validation - Common validation and lookup utilities for Quarto extensions
---- @module validation
+--- @module "validation"
 --- @license MIT
 --- @copyright 2026 Mickaël Canouil
 --- @author Mickaël Canouil

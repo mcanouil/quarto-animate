@@ -1,4 +1,4 @@
---- @module animate-shortcodes
+--- @module "animate-shortcodes"
 --- @license MIT
 --- @copyright 2026 Mickaël Canouil
 --- @author Mickaël Canouil
