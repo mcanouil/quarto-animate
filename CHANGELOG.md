@@ -4,7 +4,7 @@
 
 ### New Features
 
-- feat: Check the document configuration against the extension schema and report what it does not accept.
+- feat: Check the document configuration against the extension schema and report what it does not accept. (#66)
 
 ## 1.7.2 (2026-08-02)
 
