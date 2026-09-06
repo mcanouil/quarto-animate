@@ -7,11 +7,30 @@
 local EXTENSION_NAME = 'animate'
 
 --- Load required modules
-local str = require(quarto.utils.resolve_path("_modules/string.lua"):gsub("%.lua$", ""))
-local log = require(quarto.utils.resolve_path("_modules/logging.lua"):gsub("%.lua$", ""))
-local meta_mod = require(quarto.utils.resolve_path("_modules/metadata.lua"):gsub("%.lua$", ""))
-local html_mod = require(quarto.utils.resolve_path("_modules/html.lua"):gsub("%.lua$", ""))
+local str = require(quarto.utils.resolve_path("_vendor/quarto-lua-modules/string.lua"):gsub("%.lua$", ""))
+local log = require(quarto.utils.resolve_path("_vendor/quarto-lua-modules/logging.lua"):gsub("%.lua$", ""))
+local meta_mod = require(quarto.utils.resolve_path("_vendor/quarto-lua-modules/metadata.lua"):gsub("%.lua$", ""))
+local html_mod = require(quarto.utils.resolve_path("_vendor/quarto-lua-modules/html.lua"):gsub("%.lua$", ""))
 local validation = require(quarto.utils.resolve_path("_modules/validation.lua"):gsub("%.lua$", ""))
+
+--- Load the schema validator and the shared schema check
+local schema = require(quarto.utils.resolve_path("_vendor/quarto-wizard/schema.lua"):gsub("%.lua$", ""))
+local check = require(quarto.utils.resolve_path("_vendor/quarto-lua-modules/schema-check.lua"):gsub("%.lua$", ""))
+
+--- The schema check, built once and reused by every shortcode call.
+--- It reads `_schema.yml` on the way in, checks the document configuration
+--- once per render, and checks each call against the entry that describes it.
+---
+--- The validator is injected rather than required by the check module, so the
+--- module stays free of a hard dependency on the validator it is given.
+---
+--- The check runs from the shortcode handler because the extension contributes
+--- shortcodes and no filter, so there is no `Meta` function to run it from.
+---
+--- A schema that cannot be read is reported by the module as an error and the
+--- check then does nothing, so a render is never stopped by it.
+--- @type table
+local checker = check.new(schema, EXTENSION_NAME)
 
 --- Array of supported animation effects from Animate.css library
 --- @type string[] List of all valid animation names
@@ -185,6 +204,10 @@ end
 --- @usage {{< animate bounce delay=1s >}}Hello World{{< /animate >}}
 --- @usage {{< animate fadeIn duration=3s repeat=infinite >}}Animated text{{< /animate >}}
 local function animate(args, kwargs, meta)
+  -- Check the document configuration and this call against the schema
+  checker:options(meta)
+  checker:call('animate', args, kwargs)
+
   -- Only process for HTML-based formats (excluding epub which won't handle animations)
   if not quarto.doc.is_format("html:js") then
     return pandoc.Null()
