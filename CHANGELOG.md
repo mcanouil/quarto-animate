@@ -6,6 +6,10 @@
 
 - docs: Serve the extension's social card as the Open Graph image, so a shared link shows the card rather than the first image on the page. (#70)
 
+### Refactoring
+
+- build: Update the vendored Lua modules to 2.3.0, which includes the `schema-check` fix for an extension whose entry points are in a subdirectory. A module no longer carries a version line in its header, so its checksum changes only when its code changes. (#71)
+
 ## 1.8.0 (2026-09-07)
 
 ### New Features
