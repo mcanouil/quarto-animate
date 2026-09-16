@@ -205,7 +205,6 @@ end
 --- @usage {{< animate fadeIn duration=3s repeat=infinite >}}Animated text{{< /animate >}}
 local function animate(args, kwargs, meta)
   -- Check the document configuration and this call against the schema
-  checker:options(meta)
   checker:call('animate', args, kwargs)
 
   -- Only process for HTML-based formats (excluding epub which won't handle animations)
@@ -213,15 +212,18 @@ local function animate(args, kwargs, meta)
     return pandoc.Null()
   end
 
+  checker:options(meta)
+
   -- Reset module-level state on document boundary (batch render safety)
   reset_state_if_new_document(meta)
 
+  -- The schema declares both arguments required and `checker:call` above
+  -- already reports a missing one by name, so only the fallback behaviour
+  -- (no output) is kept here.
   if str.is_empty(args[1]) then
-    log.log_error(EXTENSION_NAME, "Animation type is required as the first argument.")
     return pandoc.Null()
   end
   if str.is_empty(args[2]) then
-    log.log_error(EXTENSION_NAME, "Animation text is required as the second argument.")
     return pandoc.Null()
   end
 
