@@ -205,13 +205,14 @@ end
 --- @usage {{< animate fadeIn duration=3s repeat=infinite >}}Animated text{{< /animate >}}
 local function animate(args, kwargs, meta)
   -- Check the document configuration and this call against the schema
-  checker:options(meta)
   checker:call('animate', args, kwargs)
 
   -- Only process for HTML-based formats (excluding epub which won't handle animations)
   if not quarto.doc.is_format("html:js") then
     return pandoc.Null()
   end
+
+  checker:options(meta)
 
   -- Reset module-level state on document boundary (batch render safety)
   reset_state_if_new_document(meta)
