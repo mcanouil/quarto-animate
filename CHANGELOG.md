@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Bug Fixes
+
+- fix: Gate the options check on the html:js format so non-acting formats stay silent. (#73)
+- fix: Report a missing shortcode argument one time instead of twice. (#73)
+
 ### Documentation
 
 - docs: Serve the extension's social card as the Open Graph image, so a shared link shows the card rather than the first image on the page. (#70)
