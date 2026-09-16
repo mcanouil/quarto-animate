@@ -217,12 +217,13 @@ local function animate(args, kwargs, meta)
   -- Reset module-level state on document boundary (batch render safety)
   reset_state_if_new_document(meta)
 
+  -- The schema declares both arguments required and `checker:call` above
+  -- already reports a missing one by name, so only the fallback behaviour
+  -- (no output) is kept here.
   if str.is_empty(args[1]) then
-    log.log_error(EXTENSION_NAME, "Animation type is required as the first argument.")
     return pandoc.Null()
   end
   if str.is_empty(args[2]) then
-    log.log_error(EXTENSION_NAME, "Animation text is required as the second argument.")
     return pandoc.Null()
   end
 
