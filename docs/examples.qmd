@@ -131,9 +131,18 @@ That call writes `Two` and drops `words` from the page.
 The extension warns that it received three arguments where two are defined, and that the extras were ignored.
 This page does not render the call, because the site is built with no warnings.
 
-A double quote cannot be typed inside the quoted text.
+A double quote cannot be typed inside double-quoted text.
 A backslash does not escape it: the text is cut at the backslash, and the call warns.
-Write the HTML entity instead:
+
+Quote the argument with apostrophes instead, and the double quotes pass through:
+
+```markdown
+{{{< animate bounce 'She said "go"' >}}}
+```
+
+{{< animate bounce 'She said "go"' >}}
+
+The HTML entity works as well, and is the way to carry both kinds of quote at once:
 
 ```markdown
 {{{< animate bounce "She said &quot;go&quot;" >}}}
