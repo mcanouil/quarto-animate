@@ -15,6 +15,10 @@ Reload to watch them again.
 A reader whose system asks for reduced motion sees no animation on this page, and printed output carries none either.
 The bundled stylesheet answers `prefers-reduced-motion: reduce` and `print` by cutting every animation to `1ms` and a single run, with `!important`, which beats the inline duration the shortcode writes.
 The same block sets `opacity: 0` on any element whose class list contains `Out`, so every exit effect is hidden outright rather than played.
+
+It does not touch `animation-delay`.
+A delayed entrance therefore still waits, and holds its first frame while it waits, so the text on this page that carries `delay=3s` stays invisible for three seconds and then appears at once.
+Use `delay` sparingly for that reason.
 :::
 
 ## Timing
