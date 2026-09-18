@@ -107,7 +107,8 @@ See [Options](reference.qmd#options) for the full list.
 
 ::: {.callout-caution}
 The block must sit under `extensions`.
-A top-level `animate:` block warns and is then ignored, which leaves the defaults in place.
+A top-level `animate:` block is ignored, which leaves the defaults in place.
+It warns as well when it holds `duration`, `delay` or `repeat`, and says nothing when it holds only `stagger` or `direction`.
 See [Validation](reference.qmd#validation).
 :::
 
