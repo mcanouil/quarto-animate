@@ -11,6 +11,12 @@ Every other option is left at its default.
 Animations play once, as the page loads.
 Reload to watch them again.
 
+::: {.callout-important}
+A reader whose system asks for reduced motion sees no animation on this page, and printed output carries none either.
+The bundled stylesheet answers `prefers-reduced-motion: reduce` and `print` by cutting every animation to `1ms` and a single run, with `!important`, which beats the inline duration the shortcode writes.
+The same block sets `opacity: 0` on any element whose class list contains `Out`, so every exit effect is hidden outright rather than played.
+:::
+
 ## Timing
 
 `duration` is written as an inline style, so any CSS time works exactly.
@@ -40,6 +46,21 @@ Reload to watch them again.
 
 : Playing an animation backwards. {.striped .hover tbl-colwidths="[60,40]"}
 
+`delay` maps to an Animate.css class as well, and only whole seconds from `1s` to `5s` have one.
+
+| Source | Renders as |
+| --- | --- |
+| `{{{< animate fadeIn "After three seconds" delay=3s >}}}` | {{< animate fadeIn "After three seconds" delay=3s >}} |
+| `{{{< animate fadeIn "Straight away" delay=500ms >}}}` | {{< animate fadeIn "Straight away" delay=500ms >}} |
+
+: A delay that reaches the output, and one that does not. {.striped .hover tbl-colwidths="[60,40]"}
+
+The second call is valid, and it writes the class `animate__delay-500ms`, which no rule matches.
+That text therefore animates at once.
+The class multiplies `--animate-delay` rather than setting an absolute time, and the extension writes that variable once per document.
+On this page it holds `1s`, so `animate__delay-3s` is three seconds here.
+See [What the timing values actually do](reference.qmd#what-the-timing-values-actually-do) for the full rule.
+
 ## Sequencing
 
 `stagger` adds an increment to the delay of each successive shortcode, so a run of them arrives in order rather than together.
@@ -58,6 +79,72 @@ Reload to watch them again.
 The increment is applied as a delay, so it is subject to the same limitation: only whole seconds from one to five reach the output.
 An increment of `300ms` validates and then does nothing.
 :::
+
+## Setting the options once
+
+Every attribute is also an option under `extensions.animate`, in the front matter of a document or in a project's `_quarto.yml`.
+This site sets two of them:
+
+```yaml
+extensions:
+  animate:
+    duration: 1s
+    delay: 1s
+```
+
+An attribute on a call beats that block, and the block beats the extension's own defaults of `3s` and `2s`.
+
+| Source | Renders as |
+| --- | --- |
+| `{{{< animate rotateIn "Project setting" >}}}` | {{< animate rotateIn "Project setting" >}} |
+| `{{{< animate rotateIn "Call setting" duration=5s >}}}` | {{< animate rotateIn "Call setting" duration=5s >}} |
+
+: The project value, and a call that overrides it. {.striped .hover tbl-colwidths="[60,40]"}
+
+The first turns for one second, from the block above.
+The second turns for five.
+See [Options](reference.qmd#options) for the full list.
+
+::: {.callout-caution}
+The block must sit under `extensions`.
+A top-level `animate:` block warns and is then ignored, which leaves the defaults in place.
+See [Validation](reference.qmd#validation).
+:::
+
+## Quoting the text
+
+The text is the second positional argument, so it needs quotes as soon as it contains a space.
+
+Without quotes, each word becomes a separate argument.
+The shortcode reads the first two, warns about the rest, and animates one word only:
+
+```markdown
+{{{< animate bounce Two words >}}}
+```
+
+That call writes `Two` and drops `words` from the page.
+The extension warns that it received three arguments where two are defined, and that the extras were ignored.
+This page does not render the call, because the site is built with no warnings.
+
+A double quote cannot be typed inside the quoted text.
+A backslash does not escape it: the text is cut at the backslash, and the call warns.
+Write the HTML entity instead:
+
+```markdown
+{{{< animate bounce "She said &quot;go&quot;" >}}}
+```
+
+{{< animate bounce "She said &quot;go&quot;" >}}
+
+An apostrophe needs no entity:
+
+```markdown
+{{{< animate bounce "It's fine" >}}}
+```
+
+{{< animate bounce "It's fine" >}}
+
+See [Shortcode](reference.qmd#shortcode) for both arguments.
 
 ## Special characters
 
@@ -98,9 +185,15 @@ Or on a div, for a whole block:
 [Animate.css](https://animate.style)
 :::
 
+A hand-written element carries no inline duration, so it takes `--animate-duration` instead.
+The extension writes that variable once per document, from the first `animate` shortcode in it.
+On this page that call is the `duration=500ms` one under [Timing](#timing), so the span and the div above both run in half a second rather than the project's one second.
+
 ## Effects
 
 Every effect the extension accepts, played by the extension.
+
+Animate.css keeps the last frame of an animation, so each exit effect below leaves its text invisible, or moved out of place, once it has played.
 
 ### Attention seekers
 
@@ -246,6 +339,25 @@ Every effect the extension accepts, played by the extension.
 - `slideOutLeft` {{< animate slideOutLeft "slideOutLeft" >}}
 - `slideOutRight` {{< animate slideOutRight "slideOutRight" >}}
 - `slideOutUp` {{< animate slideOutUp "slideOutUp" >}}
+
+## Reveal.js
+
+In `html` an animation plays once, when the page loads.
+Under `revealjs` the extension also loads `animate.js`, which listens for `slidechanged` and replays the effect each time the slide comes into view.
+
+This site is an `html` site, so the deck below is source only:
+
+```markdown
+---
+format: revealjs
+---
+
+## A slide
+
+{{{< animate bounce "Plays on every visit to this slide" >}}}
+```
+
+See [Output](reference.qmd#output) for what each format loads.
 
 ## Source
 
