@@ -19,17 +19,16 @@ project:
 website:
   title: "Animate"
   description: "A Quarto shortcode that plays any Animate.css effect on a run of text in HTML output."
-  # No trailing slash: Quarto builds the social image URL by concatenating this
-  # with the image path, without normalising.
+  # No trailing slash: the site links are built from this value, and a trailing
+  # slash doubles the separator in some of them.
   site-url: &site-url https://m.canouil.dev/quarto-animate
   repo-url: https://github.com/mcanouil/quarto-animate
   open-graph:
     image: assets/social/og-image.png
-    image-alt: "The quarto-animate social card: the extension name over the line \"Bring your documents to life with stunning CSS animations\", beside a dark code window showing document.qmd with two animate shortcode calls, one plain and one with a duration."
+    image-alt: &og-alt "The quarto-animate social card: the extension name over the line \"Bring your documents to life with stunning CSS animations\", beside a dark code window showing document.qmd with two animate shortcode calls, one plain and one with a duration."
   twitter-card:
     image: assets/social/og-image.png
-    image-alt: "The quarto-animate social card: the extension name over the line \"Bring your documents to life with stunning CSS animations\", beside a dark code window showing document.qmd with two animate shortcode calls, one plain and one with a duration."
-  image-alt: "The quarto-animate social card: the extension name over the line \"Bring your documents to life with stunning CSS animations\", beside a dark code window showing document.qmd with two animate shortcode calls, one plain and one with a duration."
+    image-alt: *og-alt
   # The Quarto project root is `docs/`, so without this every edit and issue
   # link points at a path one level up from the page it was built for.
   repo-subdir: docs
