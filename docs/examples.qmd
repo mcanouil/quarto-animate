@@ -18,7 +18,8 @@ The same block sets `opacity: 0` on any element whose class list contains `Out`,
 
 It does not touch `animation-delay`.
 A delayed entrance therefore still waits, and holds its first frame while it waits.
-This site sets `delay: 1s` for the whole project, so every call on this page waits a second before its text appears, the staggered run waits up to three seconds, and the call that carries `delay=3s` is the longest of them.
+This site sets `delay: 1s` for the whole project, so a call on this page waits a second before its text appears, unless it carries a `delay` no class matches, which animates at once.
+The longest wait on the page is three seconds, which the `delay=3s` call and the last call of the staggered run both take.
 Use `delay` sparingly for that reason.
 
 The [Reference](reference.qmd#limitations) records the same behaviour.
