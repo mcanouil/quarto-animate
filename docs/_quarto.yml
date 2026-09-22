@@ -19,9 +19,8 @@ project:
 website:
   title: "Animate"
   description: "A Quarto shortcode that plays any Animate.css effect on a run of text in HTML output."
-  # No trailing slash, so the value matches the canonical form Quarto and the
-  # atelier filter emit. Both normalise, so a trailing slash would be stripped
-  # rather than break a link.
+  # Written without a trailing slash, which is the form the rest of the site
+  # configuration assumes.
   site-url: &site-url https://m.canouil.dev/quarto-animate
   repo-url: https://github.com/mcanouil/quarto-animate
   open-graph:
