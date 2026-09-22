@@ -137,5 +137,5 @@ The extension loads `animate.min.css` on any HTML format, and additionally `anim
 - Plain text only, as described under [Shortcode](#shortcode).
 - `delay` and `repeat` are limited to the values Animate.css ships classes for.
 - A reader who asks for reduced motion, and printed output, get no animation.
-  The bundled stylesheet answers `prefers-reduced-motion: reduce` and `print` by cutting every animation to `1ms` and a single run, with `!important`, and by setting `opacity: 0` on any element whose class list contains `Out`.
+  The bundled stylesheet answers `prefers-reduced-motion: reduce` and `print` by cutting every animation to `1ms` and a single run, with `!important`, and by setting `opacity: 0` on an animated element whose class attribute contains `Out`.
   It leaves `animation-delay` alone, so a delayed call still waits and holds its first frame while it waits.
