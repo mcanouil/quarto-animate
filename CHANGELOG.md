@@ -11,6 +11,7 @@
 ### Documentation
 
 - docs: Serve the extension's social card as the Open Graph image, so a shared link shows the card rather than the first image on the page. (#70)
+- docs: Add worked examples for `delay`, project configuration, quoting the text, reduced motion, and Reveal.js to the examples page. Record the reduced-motion and print behaviour in the reference. (#74)
 
 ### Refactoring
 
