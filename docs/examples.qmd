@@ -17,8 +17,11 @@ The bundled stylesheet answers `prefers-reduced-motion: reduce` and `print` by c
 The same block sets `opacity: 0` on any element whose class list contains `Out`, so every exit effect is hidden outright rather than played.
 
 It does not touch `animation-delay`.
-A delayed entrance therefore still waits, and holds its first frame while it waits, so the text on this page that carries `delay=3s` stays invisible for three seconds and then appears at once.
+A delayed entrance therefore still waits, and holds its first frame while it waits.
+This site sets `delay: 1s` for the whole project, so every call on this page waits a second before its text appears, the staggered run waits up to three seconds, and the call that carries `delay=3s` is the longest of them.
 Use `delay` sparingly for that reason.
+
+The [Reference](reference.qmd#limitations) records the same behaviour.
 :::
 
 ## Timing
@@ -129,7 +132,7 @@ The shortcode reads the first two, warns about the rest, and animates one word o
 
 That call writes `Two` and drops `words` from the page.
 The extension warns that it received three arguments where two are defined, and that the extras were ignored.
-This page does not render the call, because the site is built with no warnings.
+This page does not render the call, because the site is kept free of warnings.
 
 A double quote cannot be typed inside double-quoted text.
 A backslash does not escape it: the text is cut at the backslash, and the call warns.
@@ -208,6 +211,7 @@ On this page that call is the `duration=500ms` one under [Timing](#timing), so t
 Every effect the extension accepts, played by the extension.
 
 Animate.css keeps the last frame of an animation, so each exit effect below leaves its text invisible, or moved out of place, once it has played.
+`hinge` and `rollOut`, under Specials, end the same way.
 
 ### Attention seekers
 
