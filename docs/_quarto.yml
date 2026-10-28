@@ -21,6 +21,8 @@ website:
   description: "A Quarto shortcode that plays any Animate.css effect on a run of text in HTML output."
   # Written without a trailing slash, which is the form the rest of the site
   # configuration assumes.
+  # quarto-dev/quarto-cli#15053 normalises this join. Drop this note once the
+  # minimum Quarto version is the first release after 1.11.6.
   site-url: &site-url https://m.canouil.dev/quarto-animate
   repo-url: https://github.com/mcanouil/quarto-animate
   open-graph:
