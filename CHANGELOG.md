@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- fix: The HTML dependency folder now uses the extension version, so browsers load the new files after an upgrade.
+
 ## 1.8.1 (2026-09-23)
 
 ### Bug Fixes
