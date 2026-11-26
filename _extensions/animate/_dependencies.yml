@@ -3,7 +3,7 @@ sources:
   quarto-lua-modules:
     origin: "https://github.com/mcanouil/quarto-lua-modules"
     fetch: "{origin}/releases/download/{version}/{file}"
-    version: "2.10.0"
+    version: "2.13.0"
     licence: MIT
     files:
       html.lua:
@@ -24,10 +24,10 @@ sources:
   quarto-wizard:
     origin: "https://github.com/mcanouil/quarto-wizard"
     fetch: "{origin}/releases/download/{version}/{file}"
-    version: "2.2.0"
+    version: "2.4.0"
     licence: MIT
     tag-prefix: schema-v
     files:
       schema.lua:
-        sha256: "84e0a5a7bae8d71a6d601d581e3e819ace96613cc76c6e9dd3cf79eee629df78"
+        sha256: "851551fdd2fb415bcab3b8c2b7779281e61ac7dde50ba35194434dcde338e6c8"
         runtime: any
