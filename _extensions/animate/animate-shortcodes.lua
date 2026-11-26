@@ -8,6 +8,7 @@ local EXTENSION_NAME = 'animate'
 
 --- Load required modules
 local str = require(quarto.utils.resolve_path("_vendor/quarto-lua-modules/string.lua"):gsub("%.lua$", ""))
+local engine = require(quarto.utils.resolve_path("_vendor/quarto-lua-modules/engine.lua"):gsub("%.lua$", ""))
 local log = require(quarto.utils.resolve_path("_vendor/quarto-lua-modules/logging.lua"):gsub("%.lua$", ""))
 local meta_mod = require(quarto.utils.resolve_path("_vendor/quarto-lua-modules/metadata.lua"):gsub("%.lua$", ""))
 local html_mod = require(quarto.utils.resolve_path("_vendor/quarto-lua-modules/html.lua"):gsub("%.lua$", ""))
@@ -168,14 +169,15 @@ end
 
 --- Detect a new document and reset module-level state so batch renders
 --- do not bleed cascade or stagger state from a previous render.
---- Uses an environment string as a sentinel; when it changes, state resets.
+--- Uses the title, the document directory and the output directory as a
+--- sentinel. When it changes, state resets.
 --- @param meta table The current document metadata
 --- @return nil
 local function reset_state_if_new_document(meta)
   local key = ''
   if meta and meta.title then key = key .. str.stringify(meta.title) end
-  key = key .. '|' .. (os.getenv('QUARTO_DOCUMENT_PATH') or '')
-  key = key .. '|' .. (os.getenv('QUARTO_PROJECT_OUTPUT_DIR') or '')
+  key = key .. '|' .. (engine.document_dir() or '')
+  key = key .. '|' .. (quarto.project.output_directory or '')
   if key ~= last_document_key then
     last_document_key = key
     deprecation_warning_shown = false
