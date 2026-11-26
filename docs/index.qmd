@@ -46,10 +46,10 @@ Which renders as {{< animate bounce "Some text" >}}.
 Timing is set per call:
 
 ```markdown
-{{{< animate tada "Some text" duration=2s repeat=3 >}}}
+{{{< animate tada "Some text" duration="2s" repeat=3 >}}}
 ```
 
-Which renders as {{< animate tada "Some text" duration=2s repeat=3 >}}.
+Which renders as {{< animate tada "Some text" duration="2s" repeat=3 >}}.
 
 Or once, for a whole document or project:
 
