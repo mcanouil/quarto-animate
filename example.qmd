@@ -26,9 +26,9 @@ Name the effect, give it the text, and the extension writes the animated span.
 Timing is set per call, or once under `extensions.animate` as in this document's front matter.
 
 ```markdown
-{{{< animate tada "Some text" duration=2s repeat=3 >}}}
+{{{< animate tada "Some text" duration="2s" repeat=3 >}}}
 ```
 
-{{< animate tada "Some text" duration=2s repeat=3 >}}
+{{< animate tada "Some text" duration="2s" repeat=3 >}}
 
 Full documentation, including all ninety-seven effects: <https://m.canouil.dev/quarto-animate/>.

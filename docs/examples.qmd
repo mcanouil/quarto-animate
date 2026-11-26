@@ -19,7 +19,7 @@ The same block sets `opacity: 0` on an animated element whose class attribute co
 It does not touch `animation-delay`.
 A delayed entrance therefore still waits, and holds its first frame while it waits.
 This site sets `delay: 1s` for the whole project, so a call on this page waits a second before its text appears, unless it carries a `delay` no class matches, which animates at once.
-The longest wait on the page is three seconds, which the `delay=3s` call and the last call of the staggered run both take.
+The longest wait on the page is three seconds, which the `delay="3s"` call and the last call of the staggered run both take.
 Use `delay` sparingly for that reason.
 
 The [Reference](reference.qmd#limitations) records the same behaviour.
@@ -31,8 +31,8 @@ The [Reference](reference.qmd#limitations) records the same behaviour.
 
 | Source | Renders as |
 | --- | --- |
-| `{{{< animate pulse "Quick" duration=500ms >}}}` | {{< animate pulse "Quick" duration=500ms >}} |
-| `{{{< animate pulse "Slow" duration=4s >}}}` | {{< animate pulse "Slow" duration=4s >}} |
+| `{{{< animate pulse "Quick" duration="500ms" >}}}` | {{< animate pulse "Quick" duration="500ms" >}} |
+| `{{{< animate pulse "Slow" duration="4s" >}}}` | {{< animate pulse "Slow" duration="4s" >}} |
 
 : The same effect at two durations. {.striped .hover tbl-colwidths="[60,40]"}
 
@@ -58,8 +58,8 @@ The [Reference](reference.qmd#limitations) records the same behaviour.
 
 | Source | Renders as |
 | --- | --- |
-| `{{{< animate fadeIn "After three seconds" delay=3s >}}}` | {{< animate fadeIn "After three seconds" delay=3s >}} |
-| `{{{< animate fadeIn "Straight away" delay=500ms >}}}` | {{< animate fadeIn "Straight away" delay=500ms >}} |
+| `{{{< animate fadeIn "After three seconds" delay="3s" >}}}` | {{< animate fadeIn "After three seconds" delay="3s" >}} |
+| `{{{< animate fadeIn "Straight away" delay="500ms" >}}}` | {{< animate fadeIn "Straight away" delay="500ms" >}} |
 
 : A delay that reaches the output, and one that does not. {.striped .hover tbl-colwidths="[60,40]"}
 
@@ -74,14 +74,14 @@ See [What the timing values actually do](reference.qmd#what-the-timing-values-ac
 `stagger` adds an increment to the delay of each successive shortcode, so a run of them arrives in order rather than together.
 
 ```markdown
-{{{< animate fadeIn "One" stagger=1s >}}}
-{{{< animate fadeIn "Two" stagger=1s >}}}
-{{{< animate fadeIn "Three" stagger=1s >}}}
+{{{< animate fadeIn "One" stagger="1s" >}}}
+{{{< animate fadeIn "Two" stagger="1s" >}}}
+{{{< animate fadeIn "Three" stagger="1s" >}}}
 ```
 
-{{< animate fadeIn "One" stagger=1s >}}
-{{< animate fadeIn "Two" stagger=1s >}}
-{{< animate fadeIn "Three" stagger=1s >}}
+{{< animate fadeIn "One" stagger="1s" >}}
+{{< animate fadeIn "Two" stagger="1s" >}}
+{{< animate fadeIn "Three" stagger="1s" >}}
 
 ::: {.callout-note}
 The increment is applied as a delay, so it is subject to the same limitation: only whole seconds from one to five reach the output.
@@ -105,7 +105,7 @@ An attribute on a call beats that block, and the block beats the extension's own
 | Source | Renders as |
 | --- | --- |
 | `{{{< animate rotateIn "Project setting" >}}}` | {{< animate rotateIn "Project setting" >}} |
-| `{{{< animate rotateIn "Call setting" duration=5s >}}}` | {{< animate rotateIn "Call setting" duration=5s >}} |
+| `{{{< animate rotateIn "Call setting" duration="5s" >}}}` | {{< animate rotateIn "Call setting" duration="5s" >}} |
 
 : The project value, and a call that overrides it. {.striped .hover tbl-colwidths="[60,40]"}
 
@@ -205,7 +205,7 @@ Or on a div, for a whole block:
 
 A hand-written element carries no inline duration, so it takes `--animate-duration` instead.
 The extension writes that variable once per document, from the first `animate` shortcode in it.
-On this page that call is the `duration=500ms` one under [Timing](#timing), so the span and the div above both run in half a second rather than the project's one second.
+On this page that call is the `duration="500ms"` one under [Timing](#timing), so the span and the div above both run in half a second rather than the project's one second.
 
 ## Effects
 
